@@ -21,10 +21,10 @@ m2 = mi*L2;
 %métodos de integração e entre as equações linearizadas e não linearizadas
 F_1modo = 0.4;
 t = 1/F_1modo;
-t = 4*t;
+t = 20*t;
 
 % Se usarmos 100 passos de integração por segundo:
-T_sim = 1/100;
+T_sim = 1/1000;
 
 % criando o vetor tempo com 100 passos por segundo e 4 períodos de oscilação
 tempo = 0:T_sim:t;
@@ -36,10 +36,11 @@ q = q(2);
 % condições iniciais de integração:
 
 % Cenário 1:
-y_0_1 = [1*pi/180 2*pi/180 0 0];
+y_0_1 = [10*pi/180 0*pi/180 0 0];
+%y_0_1 = [10*pi/180 15*pi/180 0 0];     %Usar para justificar os picozinhos
 
 % Cenário 2
-y_0_2 = [3*pi/180 7*pi/180 0.1 -0.1];
+y_0_2 = [75*pi/180 0*pi/180 0 0];
 
 
 %% Aplicação de Runge-Kutta (4-5) em C1 e C2
@@ -696,20 +697,6 @@ end
 
 %% Plot dos gráficos
 
-figure(1)
-plot(tempo, y_runge_n_lin_C1(:,1),"g")
-hold on
-plot(tempo, y_euler_n_lin_C1(:,1),"r")
-legend("Runge-Kutta", "Euler Explícito")
-title("Comparação entre os métodos de integração de Euler Explícito e Runge-Kutta para o caso não linearizado")
-
-figure(2)
-plot(tempo, y_runge_lin_C1(:,1),"g")
-hold on
-plot(tempo, y_euler_lin_C1(:,1),"r")
-legend("Runge-Kutta", "Euler Explícito")
-title("Comparação entre os métodos de integração de Euler Explícito e Runge-Kutta para o caso linearizado")
-
 % figure(1)
 % plot(tempo, K_runge_n_lin_C1(:,1),"b")
 % hold on
@@ -732,16 +719,16 @@ title("Comparação entre os métodos de integração de Euler Explícito e Rung
 % legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
 % title("Energia Potencial para o Caso 1")
 % 
-% figure(5)
-% plot(tempo, E_runge_n_lin_C1(:,1),"b")
-% hold on
-% plot(tempo, E_runge_lin_C1(:,1),"m")
-% hold on
-% plot(tempo, E_euler_n_lin_C1(:,1),"r")
-% hold on
-% plot(tempo, E_euler_lin_C1(:,1),"g")
-% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
-% title("Energia Mecânica para o Caso 1")
+figure(5)
+plot(tempo, E_runge_n_lin_C1(:,1),"b")
+hold on
+plot(tempo, E_runge_lin_C1(:,1),"m")
+hold on
+plot(tempo, E_euler_n_lin_C1(:,1),"r")
+hold on
+plot(tempo, E_euler_lin_C1(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
+title("Energia Mecânica para o Caso 1")
 % 
 % %Plotagens para o item h
 % 
@@ -765,6 +752,63 @@ title("Comparação entre os métodos de integração de Euler Explícito e Rung
 % plot(tempo, E_euler_n_lin_C2(:,1),"m")
 % legend("Runge-Kutta (4,5) - M1", "Euler-Explícito - M2")
 % title("Energia Mecânica para o Caso 2 por M1 e M2")
+% 
+% figure(10)
+% plot(tempo, y_runge_n_lin_C1(:,1),"g")
+% hold on
+% plot(tempo, y_euler_n_lin_C1(:,1),"r")
+% legend("Runge-Kutta", "Euler Explícito")
+% title("Comparação entre os métodos de integração de Euler Explícito e Runge-Kutta para o caso não linearizado")
+% 
+% figure(11)
+% plot(tempo, y_runge_lin_C1(:,1),"g")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,1),"r")
+% legend("Runge-Kutta", "Euler Explícito")
+% title("Comparação entre os métodos de integração de Euler Explícito e Runge-Kutta para o caso linearizado")
+% 
+figure(12)
+plot(tempo, E_runge_n_lin_C2(:,1),"b")
+hold on
+plot(tempo, E_runge_lin_C2(:,1),"m")
+hold on
+plot(tempo, E_euler_n_lin_C2(:,1),"r")
+hold on
+plot(tempo, E_euler_lin_C2(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
+title("Energia Mecânica para o Caso 2")
+
+% figure(13)
+% plot(tempo, y_runge_n_lin_C1(:,2),"b")
+% hold on
+% plot(tempo, y_runge_lin_C1(:,2),"m")
+% ylim([-1,1])
+% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)")
+% title("Posição barra 2 Caso 1 Runge-Kutta")
+% 
+% figure(14)
+% plot(tempo, y_euler_n_lin_C1(:,2),"r")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,2),"g")
+% ylim([-1,1])
+% legend("Não Linear por Euler Explícito", "Linear por Euler Explícito")
+% title("Posição barra 2 Caso 1 Euler")
+% 
+% figure(15)
+% plot(tempo, y_runge_n_lin_C2(:,2),"b")
+% hold on
+% plot(tempo, y_runge_lin_C2(:,2),"m")
+% %ylim([-1,1])
+% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)")
+% title("Posição barra 2 Caso 2 Runge-Kutta")
+% 
+% figure(16)
+% plot(tempo, y_euler_n_lin_C2(:,2),"r")
+% hold on
+% plot(tempo, y_euler_lin_C2(:,2),"g")
+% % ylim([-1,1])
+% legend("Não Linear por Euler Explícito", "Linear por Euler Explícito")
+% title("Posição barra 2 Caso 2 Euler")
 
 %% Defininido os espaçoes de estados
 
@@ -796,9 +840,8 @@ m1 = L1*mi;
 m2 = L2*mi;
 dydt_lin_1 = y_0(3);
 dydt_lin_2 = y_0(4);
-dydt_lin_3 = (3*(wp^2)*((-2*(1+2*L)*y_0(1))+(L*(3+2*L)*y_0(2))))/(4+3*L);
-dydt_lin_4 = (3*(wp^2)*(((3+4*L*(2+L))*y_0(1))-(2*((1+L)^3)*y_0(2))))/(L*(4+3*L));
+dydt_lin_3 = (3*(wp^2)*((-2*(2+L)*y_0(1))+(3*y_0(2))))/(3+4*L);
+dydt_lin_4 = (3*L*(wp^2)*(((3*(2+L))*y_0(1))-(2*(3+L)*y_0(2))))/(3+4*L);
 dydt_lin =  [dydt_lin_1; dydt_lin_2; dydt_lin_3; dydt_lin_4];
 end
 
-bobo
