@@ -5,7 +5,6 @@ wp = 1;
 g = 9.8;
 L1 = g/(wp^2);
 L2 = L1*20/21;
-L = L1/L2;
 mi = 2;                             % definido arbitrariamente
 m1 = mi*L1;
 m2 = mi*L2;
@@ -53,6 +52,13 @@ y_0= y_0_2;     % aplicando para o cenário 2
 [t_runge_n_lin_C2, y_runge_n_lin_C2] = ode45(@f_n_lin, tempo, y_0);     % não linearizado
 [t_runge_lin_C2, y_runge_lin_C2] = ode45(@f_lin, tempo, y_0);           % linearizado
 
+%% Aplicação do Euler Explícito em C1 e C2
+
+% criar as matrizes que receberão os valores calculados
+y_euler_n_lin_C1 = zeros(q,4);       %C1 não linearizado
+y_euler_lin_C1 = zeros(q,4);         %C1 linearizado
+y_euler_n_lin_C2 = zeros(q,4);       %C2 não linearizado
+y_euler_lin_C2 = zeros(q,4);         %C2 linearizado
 
 
 %% Para os cálculos de energia
@@ -215,7 +221,8 @@ plot(tempo, E_n_lin_C2(:,1),"m")
 
 %% Testes
 
-
+f = @f_n_lin
+y=y_0_1 + 
 %% Defininido os espaçoes de estados
 
 %Não linearizado
