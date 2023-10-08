@@ -11,7 +11,6 @@ m1 = mi*L1;
 m2 = mi*L2;
 
 
-
 %% Definição dos parâmetros iniciais da integração
 
 % Ao substituir os valor de \lambda = (21/20) e de \omega_p = 1, teremos que
