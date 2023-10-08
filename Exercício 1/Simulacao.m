@@ -37,7 +37,7 @@ q = q(2);
 % condições iniciais de integração:
 
 % Cenário 1:
-y_0_1 = [3*pi/180 7*pi/180 0 0];
+y_0_1 = [1*pi/180 2*pi/180 0 0];
 
 % Cenário 2
 y_0_2 = [3*pi/180 7*pi/180 0.1 -0.1];
@@ -53,9 +53,94 @@ y_0= y_0_2;     % aplicando para o cenário 2
 [t_runge_n_lin_C2, y_runge_n_lin_C2] = ode45(@f_n_lin, tempo, y_0);     % não linearizado
 [t_runge_lin_C2, y_runge_lin_C2] = ode45(@f_lin, tempo, y_0);           % linearizado
 
+%% Aplicação do Euler Explícito em C1 e C2
 
+% criar as matrizes que receberão os valores calculados
+y_euler_n_lin_C1 = zeros(q,4);       %C1 não linearizado
+y_euler_lin_C1 = zeros(q,4);         %C1 linearizado
+y_euler_n_lin_C2 = zeros(q,4);       %C2 não linearizado
+y_euler_lin_C2 = zeros(q,4);         %C2 linearizado
 
-%% Para os cálculos de energia
+% para o cenário C1
+y_0 = y_0_1;
+
+% aplicando o Euler Explícito para não linearizado
+for i = 0:q-1
+
+    % valores de f
+    dydt_n_lin_1 = y_0(3);
+    dydt_n_lin_2 = y_0(4);
+    dydt_n_lin_3 = (-3*g*((4*m1 + 5*m2)*sin(y_0(1)) + 3*m2*sin(y_0(1) - 2*y_0(2))))/((8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))))*L1) + (9*m2*sin(2*(y_0(1) - y_0(2)))*(y_0(3)*y_0(3)))/(-8*m1 - 15*m2 + 9*m2*cos(2*(y_0(1) - y_0(2)))) + (6*m2*sin(y_0(1) - y_0(2))*L2*(y_0(4)*y_0(4)))/((-4*(m1 + 3*m2) + 9*m2*(cos(y_0(1) - y_0(2))*cos(y_0(1) - y_0(2))))*L1);
+    dydt_n_lin_4 = (9*g*(m1 + 2*m2)*sin(2*y_0(1) - y_0(2)) - 3*g*(m1 + 6*m2)*sin(y_0(2)))/((8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))))*L2) + (6*(m1 + 3*m2)*sin(y_0(1) - y_0(2))*L1*(y_0(3)*y_0(3)))/((4*(m1 + 3*m2) - 9*m2*(cos(y_0(1) - y_0(2))*cos(y_0(1) - y_0(2))))*L2) + (9*m2*sin(2*(y_0(1) - y_0(2)))*(y_0(4)*y_0(4)))/(8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))));
+
+    % y(i+1) = y(i) + T_sim * f
+    y_euler_n_lin_C1(i+1,1) = y_0(1,1) + T_sim*dydt_n_lin_1;
+    y_euler_n_lin_C1(i+1,2) = y_0(1,2) + T_sim*dydt_n_lin_2;
+    y_euler_n_lin_C1(i+1,3) = y_0(1,3) + T_sim*dydt_n_lin_3;
+    y_euler_n_lin_C1(i+1,4) = y_0(1,4) + T_sim*dydt_n_lin_4;
+
+    y_0 = [ y_euler_n_lin_C1(i+1,1)  y_euler_n_lin_C1(i+1,2)  y_euler_n_lin_C1(i+1,3)  y_euler_n_lin_C1(i+1,4)];
+end
+
+y_0 = y_0_1;
+% aplicando o Euler Explícito para linearizado
+for i = 0:q-1
+
+    % valores de f
+    dydt_lin_1 = y_0(3);
+    dydt_lin_2 = y_0(4);
+    dydt_lin_3 = (3*(wp^2)*((-2*(1+2*L)*y_0(1))+(L*(3+2*L)*y_0(2))))/(4+3*L);
+    dydt_lin_4 = (((3*wp^2)*((3+(4*L*(2+L)*y_0(1)))-(2*((1+L)^3)*y_0(2))))/(L*(4+3*L)));
+
+    % y(i+1) = y(i) + T_sim * f
+    y_euler_lin_C1(i+1,1) = y_0(1,1) + T_sim*dydt_lin_1;
+    y_euler_lin_C1(i+1,2) = y_0(1,2) + T_sim*dydt_lin_2;
+    y_euler_lin_C1(i+1,3) = y_0(1,3) + T_sim*dydt_lin_3;
+    y_euler_lin_C1(i+1,4) = y_0(1,4) + T_sim*dydt_lin_4;
+
+    y_0 = [ y_euler_lin_C1(i+1,1)  y_euler_lin_C1(i+1,2)  y_euler_lin_C1(i+1,3)  y_euler_lin_C1(i+1,4)];
+end
+
+% para o cenário C2
+y_0 = y_0_2;
+
+% aplicando o Euler Explícito para não linearizado
+for i = 0:q-1
+
+    % valores de f
+    dydt_n_lin_1 = y_0(3);
+    dydt_n_lin_2 = y_0(4);
+    dydt_n_lin_3 = (-3*g*((4*m1 + 5*m2)*sin(y_0(1)) + 3*m2*sin(y_0(1) - 2*y_0(2))))/((8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))))*L1) + (9*m2*sin(2*(y_0(1) - y_0(2)))*(y_0(3)*y_0(3)))/(-8*m1 - 15*m2 + 9*m2*cos(2*(y_0(1) - y_0(2)))) + (6*m2*sin(y_0(1) - y_0(2))*L2*(y_0(4)*y_0(4)))/((-4*(m1 + 3*m2) + 9*m2*(cos(y_0(1) - y_0(2))*cos(y_0(1) - y_0(2))))*L1);
+    dydt_n_lin_4 = (9*g*(m1 + 2*m2)*sin(2*y_0(1) - y_0(2)) - 3*g*(m1 + 6*m2)*sin(y_0(2)))/((8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))))*L2) + (6*(m1 + 3*m2)*sin(y_0(1) - y_0(2))*L1*(y_0(3)*y_0(3)))/((4*(m1 + 3*m2) - 9*m2*(cos(y_0(1) - y_0(2))*cos(y_0(1) - y_0(2))))*L2) + (9*m2*sin(2*(y_0(1) - y_0(2)))*(y_0(4)*y_0(4)))/(8*m1 + 15*m2 - 9*m2*cos(2*(y_0(1) - y_0(2))));
+
+    % y(i+1) = y(i) + T_sim * f
+    y_euler_n_lin_C2(i+1,1) = y_0(1,1) + T_sim*dydt_n_lin_1;
+    y_euler_n_lin_C2(i+1,2) = y_0(1,2) + T_sim*dydt_n_lin_2;
+    y_euler_n_lin_C2(i+1,3) = y_0(1,3) + T_sim*dydt_n_lin_3;
+    y_euler_n_lin_C2(i+1,4) = y_0(1,4) + T_sim*dydt_n_lin_4;
+
+    y_0 = [ y_euler_n_lin_C2(i+1,1)  y_euler_n_lin_C2(i+1,2)  y_euler_n_lin_C2(i+1,3)  y_euler_n_lin_C2(i+1,4)];
+end
+
+y_0 = y_0_2;
+% aplicando o Euler Explícito para linearizado
+for i = 0:q-1
+
+    % valores de f
+    dydt_lin_1 = y_0(3);
+    dydt_lin_2 = y_0(4);
+    dydt_lin_3 = (3*(wp^2)*((-2*(1+2*L)*y_0(1))+(L*(3+2*L)*y_0(2))))/(4+3*L);
+    dydt_lin_4 = (((3*wp^2)*((3+(4*L*(2+L)*y_0(1)))-(2*((1+L)^3)*y_0(2))))/(L*(4+3*L)));
+
+    % y(i+1) = y(i) + T_sim * f
+    y_euler_lin_C2(i+1,1) = y_0(1,1) + T_sim*dydt_lin_1;
+    y_euler_lin_C2(i+1,2) = y_0(1,2) + T_sim*dydt_lin_2;
+    y_euler_lin_C2(i+1,3) = y_0(1,3) + T_sim*dydt_lin_3;
+    y_euler_lin_C2(i+1,4) = y_0(1,4) + T_sim*dydt_lin_4;
+
+    y_0 = [ y_euler_lin_C2(i+1,1)  y_euler_lin_C2(i+1,2)  y_euler_lin_C2(i+1,3)  y_euler_lin_C2(i+1,4)];
+end
+%% Para os cálculos de energia com Runge-Kutta não linearizados
 
 I1 = (m1*L1^2)/12;                      % Momento de inércia
 I2 = (m2*L2^2)/12;                      % Momento de inércia
@@ -76,144 +161,560 @@ sin2_C2= sin(y_runge_n_lin_C2(:,2));   % Vetor de senos de theta_2
 w1quadrado_C2 = y_runge_n_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
 w2quadrado_C2 = y_runge_n_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
 
-%% Energia Mecânica C1 não linearizado
+%% Energia Mecânica Runge-Kutta C1 não linearizado
 
 % Energia Cinética:
 
 % Velocidade CG 1
-V1_n_lin_C1 = zeros(q,1);
+v1_runge_n_lin_C1 = zeros(q,1);
 p = 1;
 while p <= q
     v = y_runge_n_lin_C1(p,3)*L1/2;
-    V1_n_lin_C1(p,1) = v^2;
+    v1_runge_n_lin_C1(p,1) = v^2;
     p = p+1;
 end
 
 % Velocidade CG 2 em x
-V2x_n_lin_C1 = zeros(q,1);
+v2x_runge_n_lin_C1 = zeros(q,1);
 p = 1;
 while p <= q
     v = (y_runge_n_lin_C1(p,3)*L1*cos1_C1(p,1))+(y_runge_n_lin_C1(p,4)*(L2/2)*cos2_C1(p,1));
-    V2x_n_lin_C1(p,1) = v^2;
+    v2x_runge_n_lin_C1(p,1) = v^2;
     p = p+1;
 end
 
 % Velocidade CG 2 em y
-V2y_n_lin_C1 = zeros(q,1);
+v2y_runge_n_lin_C1 = zeros(q,1);
 p = 1;
 while p <= q
     v = (y_runge_n_lin_C1(p,3)*L1*sin1_C1(p,1))+(y_runge_n_lin_C1(p,4)*(L2/2)*sin2_C1(p,1));
-    V2y_n_lin_C1(p,1) = v^2;
+    v2y_n_lin_C1(p,1) = v^2;
     p = p+1;
 end
 
 % Energia cinética total
-K_n_lin_C1 = zeros(q,1);
+K_runge_n_lin_C1 = zeros(q,1);
 p=1;
 while p <= q
-    k = ((m1*V1_n_lin_C1(p,1))/2)+(m2*((V2x_n_lin_C1(p,1))+(V2y_n_lin_C1(p,1)))/2)+(I1*(w1quadrado_C1(p,3))/2)+(I2*(w2quadrado_C1(p,4))/2);
-    K_n_lin_C1(p,1) = k;
+    k = ((m1*v1_runge_n_lin_C1(p,1))/2)+(m2*((v2x_runge_n_lin_C1(p,1))+(v2y_n_lin_C1(p,1)))/2)+(I1*(w1quadrado_C1(p,3))/2)+(I2*(w2quadrado_C1(p,4))/2);
+    K_runge_n_lin_C1(p,1) = k;
     p = p+1;
 end
 
 % Energia potencial
 
-V_n_lin_C1 = zeros(q,1);
+V_runge_n_lin_C1 = zeros(q,1);
 p=1;
 
 while p <= q
-    V_n_lin_C1(p,1) = (m1*g*L1*(1-cos1_C1(p,1))/2)+(m2*g*((L1*(1-cos1_C1(p,1)))+(L2*(1-cos2_C1(p,1)/2))));
+    V_runge_n_lin_C1(p,1) = (m1*g*L1*(1-cos1_C1(p,1))/2)+(m2*g*((L1*(1-cos1_C1(p,1)))+(L2*(1-cos2_C1(p,1)/2))));
     p = p+1;
 end
 
 % Energia mecânica 
 
-E_n_lin_C1 = zeros(q,1);
+E_runge_n_lin_C1 = zeros(q,1);
 p = 1;
 
 while p <= q
-    E_n_lin_C1(p,1) = K_n_lin_C1(p,1)+V_n_lin_C1(p,1);
+    E_runge_n_lin_C1(p,1) = K_runge_n_lin_C1(p,1)+V_runge_n_lin_C1(p,1);
     p = p+1;
 end
 
-%% Energia Mecânica C2 não linearizado
+%% Energia Mecânica Runge-Kutta C2 não linearizado
 
 % Energia Cinética
 
 % Velocidade CG 1
-V1_n_lin_C2 = zeros(q,1);
+v1_runge_n_lin_C2 = zeros(q,1);
 p = 1;
 while p <= q
     v = y_runge_n_lin_C2(p,3)*L1/2;
-    V1_n_lin_C2(p,1) = v^2;
+    v1_runge_n_lin_C2(p,1) = v^2;
     p = p+1;
 end
 
 % Velocidade CG 2 em x
-V2x_n_lin_C2 = zeros(q,1);
+v2x_runge_n_lin_C2 = zeros(q,1);
 p = 1;
 while p <= q
     v = (y_runge_n_lin_C2(p,3)*L1*cos1_C2(p,1))+(y_runge_n_lin_C2(p,4)*(L2/2)*cos2_C2(p,1));
-    V2x_n_lin_C2(p,1) = v^2;
+    v2x_runge_n_lin_C2(p,1) = v^2;
     p = p+1;
 end
 
 % Velocidade CG 2 em y
-V2y_n_lin_C2 = zeros(q,1);
+v2y_runge_n_lin_C2 = zeros(q,1);
 p = 1;
 while p <= q
     v = (y_runge_n_lin_C2(p,3)*L1*sin1_C2(p,1))+(y_runge_n_lin_C2(p,4)*(L2/2)*sin2_C2(p,1));
-    V2y_n_lin_C2(p,1) = v^2;
+    v2y_runge_n_lin_C2(p,1) = v^2;
     p = p+1;
 end
 
 % Energia cinética total
-K_n_lin_C2 = zeros(q,1);
+K_runge_n_lin_C2 = zeros(q,1);
 p=1;
 while p <= q
-    k = ((m1*V1_n_lin_C2(p,1))/2)+(m2*((V2x_n_lin_C2(p,1))+(V2y_n_lin_C2(p,1)))/2)+(I1*(w1quadrado_C2(p,3))/2)+(I2*(w2quadrado_C2(p,4))/2);
-    K_n_lin_C2(p,1) = k;
+    k = ((m1*v1_runge_n_lin_C2(p,1))/2)+(m2*((v2x_runge_n_lin_C2(p,1))+(v2y_runge_n_lin_C2(p,1)))/2)+(I1*(w1quadrado_C2(p,3))/2)+(I2*(w2quadrado_C2(p,4))/2);
+    K_runge_n_lin_C2(p,1) = k;
     p = p+1;
 end
 
 % Energia potencial
 
-V_n_lin_C2 = zeros(q,1);
+V_runge_n_lin_C2 = zeros(q,1);
 p=1;
 
 while p <= q
-    V_n_lin_C2(p,1) = (m1*g*L1*(1-cos1_C2(p,1))/2)+(m2*g*((L1*(1-cos1_C2(p,1)))+(L2*(1-cos2_C2(p,1)/2))));
+    V_runge_n_lin_C2(p,1) = (m1*g*L1*(1-cos1_C2(p,1))/2)+(m2*g*((L1*(1-cos1_C2(p,1)))+(L2*(1-cos2_C2(p,1)/2))));
     p = p+1;
 end
 
 % Energia mecânica 
 
-E_n_lin_C2 = zeros(q,1);
+E_runge_n_lin_C2 = zeros(q,1);
 p = 1;
 
 while p <= q
-    E_n_lin_C2(p,1) = K_n_lin_C2(p,1)+V_n_lin_C2(p,1);
+    E_runge_n_lin_C2(p,1) = K_runge_n_lin_C2(p,1)+V_runge_n_lin_C2(p,1);
     p = p+1;
 end
+
+%% Para os cálculos de energia com Runge-Kutta linearizados
+
+% Para C1 linearizado:
+cos1_C1 = cos(y_runge_lin_C1(:,1));  % Vetor de cossenos de theta_1
+cos2_C1= cos(y_runge_lin_C1(:,2));   % Vetor de cossenos de Theta_2
+sin1_C1 = sin(y_runge_lin_C1(:,1));  % Vetor de senos de theta_1
+sin2_C1= sin(y_runge_lin_C1(:,2));   % Vetor de senos de theta_2
+w1quadrado_C1 = y_runge_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C1 = y_runge_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+% Para C2 linearizado:
+cos1_C2 = cos(y_runge_lin_C2(:,1));  % Vetor de cossenos de theta_1
+cos2_C2= cos(y_runge_lin_C2(:,2));   % Vetor de cossenos de Theta_2
+sin1_C2 = sin(y_runge_lin_C2(:,1));  % Vetor de senos de theta_1
+sin2_C2= sin(y_runge_lin_C2(:,2));   % Vetor de senos de theta_2
+w1quadrado_C2 = y_runge_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C2 = y_runge_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+%% Energia Mecânica Runge-Kutta C1 linearizado
+
+% Energia Cinética
+
+% Velocidade CG 1
+v1_runge_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_runge_lin_C1(p,3)*L1/2;
+    v1_runge_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_runge_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_runge_lin_C1(p,3)*L1*cos1_C1(p,1))+(y_runge_lin_C1(p,4)*(L2/2)*cos2_C1(p,1));
+    v2x_runge_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_runge_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_runge_lin_C1(p,3)*L1*sin1_C1(p,1))+(y_runge_lin_C1(p,4)*(L2/2)*sin2_C1(p,1));
+    v2y_runge_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_runge_lin_C1 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_runge_lin_C1(p,1))/2)+(m2*((v2x_runge_lin_C1(p,1))+(v2y_runge_lin_C1(p,1)))/2)+(I1*(w1quadrado_C1(p,3))/2)+(I2*(w2quadrado_C1(p,4))/2);
+    K_runge_lin_C1(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_runge_lin_C1 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_runge_lin_C1(p,1) = (m1*g*L1*(1-cos1_C1(p,1))/2)+(m2*g*((L1*(1-cos1_C1(p,1)))+(L2*(1-cos2_C1(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_runge_lin_C1 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_runge_lin_C1(p,1) = K_runge_lin_C1(p,1)+V_runge_lin_C1(p,1);
+    p = p+1;
+end
+
+%% Energia Mecânica Runge-Kutta C2 linearizado
+
+% Energia Cinética
+
+% Velocidade CG 1
+v1_runge_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_runge_lin_C2(p,3)*L1/2;
+    v1_runge_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_runge_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_runge_lin_C2(p,3)*L1*cos1_C2(p,1))+(y_runge_lin_C2(p,4)*(L2/2)*cos2_C2(p,1));
+    v2x_runge_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_runge_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_runge_lin_C2(p,3)*L1*sin1_C2(p,1))+(y_runge_lin_C2(p,4)*(L2/2)*sin2_C2(p,1));
+    v2y_runge_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_runge_lin_C2 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_runge_lin_C2(p,1))/2)+(m2*((v2x_runge_lin_C2(p,1))+(v2y_runge_lin_C2(p,1)))/2)+(I1*(w1quadrado_C2(p,3))/2)+(I2*(w2quadrado_C2(p,4))/2);
+    K_runge_lin_C2(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_runge_lin_C2 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_runge_lin_C2(p,1) = (m1*g*L1*(1-cos1_C2(p,1))/2)+(m2*g*((L1*(1-cos1_C2(p,1)))+(L2*(1-cos2_C2(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_runge_lin_C2 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_runge_lin_C2(p,1) = K_runge_lin_C2(p,1)+V_runge_lin_C2(p,1);
+    p = p+1;
+end
+
+%% Para os cálculos de energia com Euler não linearizado
+
+% Para C1 não linearizado:
+cos1_C1 = cos(y_euler_n_lin_C1(:,1));  % Vetor de cossenos de theta_1
+cos2_C1= cos(y_euler_n_lin_C1(:,2));   % Vetor de cossenos de Theta_2
+sin1_C1 = sin(y_euler_n_lin_C1(:,1));  % Vetor de senos de theta_1
+sin2_C1= sin(y_euler_n_lin_C1(:,2));   % Vetor de senos de theta_2
+w1quadrado_C1 = y_euler_n_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C1 = y_euler_n_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+% Para C2 não linearizado:
+cos1_C2 = cos(y_euler_n_lin_C2(:,1));  % Vetor de cossenos de theta_1
+cos2_C2= cos(y_euler_n_lin_C2(:,2));   % Vetor de cossenos de Theta_2
+sin1_C2 = sin(y_euler_n_lin_C2(:,1));  % Vetor de senos de theta_1
+sin2_C2= sin(y_euler_n_lin_C2(:,2));   % Vetor de senos de theta_2
+w1quadrado_C2 = y_euler_n_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C2 = y_euler_n_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+%% Energia Mecânica Euler C1 não linearizado
+
+% Energia Cinética:
+
+% Velocidade CG 1
+v1_euler_n_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_euler_n_lin_C1(p,3)*L1/2;
+    v1_euler_n_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_euler_n_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_n_lin_C1(p,3)*L1*cos1_C1(p,1))+(y_euler_n_lin_C1(p,4)*(L2/2)*cos2_C1(p,1));
+    v2x_euler_n_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_euler_n_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_n_lin_C1(p,3)*L1*sin1_C1(p,1))+(y_euler_n_lin_C1(p,4)*(L2/2)*sin2_C1(p,1));
+    v2y_n_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_euler_n_lin_C1 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_euler_n_lin_C1(p,1))/2)+(m2*((v2x_euler_n_lin_C1(p,1))+(v2y_n_lin_C1(p,1)))/2)+(I1*(w1quadrado_C1(p,3))/2)+(I2*(w2quadrado_C1(p,4))/2);
+    K_euler_n_lin_C1(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_euler_n_lin_C1 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_euler_n_lin_C1(p,1) = (m1*g*L1*(1-cos1_C1(p,1))/2)+(m2*g*((L1*(1-cos1_C1(p,1)))+(L2*(1-cos2_C1(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_euler_n_lin_C1 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_euler_n_lin_C1(p,1) = K_euler_n_lin_C1(p,1)+V_euler_n_lin_C1(p,1);
+    p = p+1;
+end
+
+%% Energia Mecânica Euler C2 não linearizado
+
+% Energia Cinética:
+
+% Velocidade CG 1
+v1_euler_n_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_euler_n_lin_C2(p,3)*L1/2;
+    v1_euler_n_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_euler_n_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_n_lin_C2(p,3)*L1*cos1_C2(p,1))+(y_euler_n_lin_C2(p,4)*(L2/2)*cos2_C2(p,1));
+    v2x_euler_n_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_euler_n_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_n_lin_C2(p,3)*L1*sin1_C2(p,1))+(y_euler_n_lin_C2(p,4)*(L2/2)*sin2_C2(p,1));
+    v2y_n_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_euler_n_lin_C2 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_euler_n_lin_C2(p,1))/2)+(m2*((v2x_euler_n_lin_C2(p,1))+(v2y_n_lin_C2(p,1)))/2)+(I1*(w1quadrado_C2(p,3))/2)+(I2*(w2quadrado_C2(p,4))/2);
+    K_euler_n_lin_C2(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_euler_n_lin_C2 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_euler_n_lin_C2(p,1) = (m1*g*L1*(1-cos1_C2(p,1))/2)+(m2*g*((L1*(1-cos1_C2(p,1)))+(L2*(1-cos2_C2(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_euler_n_lin_C2 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_euler_n_lin_C2(p,1) = K_euler_n_lin_C2(p,1)+V_euler_n_lin_C2(p,1);
+    p = p+1;
+end
+
+%% Para os cálculos de energia com Euler linearizados
+
+% Para C1 linearizado:
+cos1_C1 = cos(y_euler_lin_C1(:,1));  % Vetor de cossenos de theta_1
+cos2_C1= cos(y_euler_lin_C1(:,2));   % Vetor de cossenos de Theta_2
+sin1_C1 = sin(y_euler_lin_C1(:,1));  % Vetor de senos de theta_1
+sin2_C1= sin(y_euler_lin_C1(:,2));   % Vetor de senos de theta_2
+w1quadrado_C1 = y_euler_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C1 = y_euler_lin_C1.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+% Para C2 linearizado:
+cos1_C2 = cos(y_euler_lin_C2(:,1));  % Vetor de cossenos de theta_1
+cos2_C2= cos(y_euler_lin_C2(:,2));   % Vetor de cossenos de Theta_2
+sin1_C2 = sin(y_euler_lin_C2(:,1));  % Vetor de senos de theta_1
+sin2_C2= sin(y_euler_lin_C2(:,2));   % Vetor de senos de theta_2
+w1quadrado_C2 = y_euler_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 1
+w2quadrado_C2 = y_euler_lin_C2.^2;   % Vetor com os quadrados das velocidades angulares da barra 2
+
+%% Energia Mecânica Euler C1 linearizado
+
+% Energia Cinética:
+
+% Velocidade CG 1
+v1_euler_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_euler_lin_C1(p,3)*L1/2;
+    v1_euler_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_euler_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_lin_C1(p,3)*L1*cos1_C1(p,1))+(y_euler_lin_C1(p,4)*(L2/2)*cos2_C1(p,1));
+    v2x_euler_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_euler_lin_C1 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_lin_C1(p,3)*L1*sin1_C1(p,1))+(y_euler_lin_C1(p,4)*(L2/2)*sin2_C1(p,1));
+    v2y_lin_C1(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_euler_lin_C1 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_euler_lin_C1(p,1))/2)+(m2*((v2x_euler_lin_C1(p,1))+(v2y_lin_C1(p,1)))/2)+(I1*(w1quadrado_C1(p,3))/2)+(I2*(w2quadrado_C1(p,4))/2);
+    K_euler_lin_C1(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_euler_lin_C1 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_euler_lin_C1(p,1) = (m1*g*L1*(1-cos1_C1(p,1))/2)+(m2*g*((L1*(1-cos1_C1(p,1)))+(L2*(1-cos2_C1(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_euler_lin_C1 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_euler_lin_C1(p,1) = K_euler_lin_C1(p,1)+V_euler_lin_C1(p,1);
+    p = p+1;
+end
+
+%% Energia Mecânica Euler C2 linearizado
+
+% Energia Cinética
+
+% Velocidade CG 1
+v1_euler_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = y_euler_lin_C2(p,3)*L1/2;
+    v1_euler_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em x
+v2x_euler_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_lin_C2(p,3)*L1*cos1_C2(p,1))+(y_euler_lin_C2(p,4)*(L2/2)*cos2_C2(p,1));
+    v2x_euler_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Velocidade CG 2 em y
+v2y_euler_lin_C2 = zeros(q,1);
+p = 1;
+while p <= q
+    v = (y_euler_lin_C2(p,3)*L1*sin1_C2(p,1))+(y_euler_lin_C2(p,4)*(L2/2)*sin2_C2(p,1));
+    v2y_euler_lin_C2(p,1) = v^2;
+    p = p+1;
+end
+
+% Energia cinética total
+K_euler_lin_C2 = zeros(q,1);
+p=1;
+while p <= q
+    k = ((m1*v1_euler_lin_C2(p,1))/2)+(m2*((v2x_euler_lin_C2(p,1))+(v2y_euler_lin_C2(p,1)))/2)+(I1*(w1quadrado_C2(p,3))/2)+(I2*(w2quadrado_C2(p,4))/2);
+    K_euler_lin_C2(p,1) = k;
+    p = p+1;
+end
+
+% Energia potencial
+
+V_euler_lin_C2 = zeros(q,1);
+p=1;
+
+while p <= q
+    V_euler_lin_C2(p,1) = (m1*g*L1*(1-cos1_C2(p,1))/2)+(m2*g*((L1*(1-cos1_C2(p,1)))+(L2*(1-cos2_C2(p,1)/2))));
+    p = p+1;
+end
+
+% Energia mecânica 
+
+E_euler_lin_C2 = zeros(q,1);
+p = 1;
+
+while p <= q
+    E_euler_lin_C2(p,1) = K_euler_lin_C2(p,1)+V_euler_lin_C2(p,1);
+    p = p+1;
+end
+
 %% Plot dos gráficos
 
 figure(1)
-plot(tempo, y_runge_n_lin_C2(:,1),"g")
+plot(tempo, y_euler_lin_C1(:,1),"g")
 hold on
-plot(tempo, y_runge_lin_C2(:,1),"r")
+plot(tempo, y_euler_n_lin_C1(:,1),"r")
+legend("linear", "não linear")
+title("sossego")
 
 figure(2)
-plot(tempo, K_n_lin_C1(:,1),"b")
+plot(tempo, K_runge_n_lin_C1(:,1),"b")
 hold on
-plot(tempo, V_n_lin_C1(:,1),"m")
+plot(tempo, V_runge_n_lin_C1(:,1),"m")
 
 figure(3)
-plot(tempo, E_n_lin_C1(:,1),"k")
+plot(tempo, E_runge_n_lin_C1(:,1),"k")
+hold on
+plot(tempo, E_runge_lin_C1(:,1),"m")
 
-figure(4)
-plot(tempo, E_n_lin_C2(:,1),"m")
 
-%% Testes
 
 
 %% Defininido os espaçoes de estados
