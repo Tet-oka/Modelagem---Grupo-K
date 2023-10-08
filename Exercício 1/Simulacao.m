@@ -37,7 +37,6 @@ q = q(2);
 
 % Cenário 1:
 y_0_1 = [10*pi/180 0*pi/180 0 0];
-%y_0_1 = [10*pi/180 15*pi/180 0 0];     %Usar para justificar os picozinhos
 
 % Cenário 2
 y_0_2 = [75*pi/180 0*pi/180 0 0];
@@ -839,6 +838,18 @@ end
 % plot(tempo, y_euler_lin_C1(:,2),"m")
 % legend("Runge-Kutta (4-5)", "Euler Explícito")
 % title("Comparação dos métodos de integração no cenário 1 linearizado")
+% 
+% figure(5)
+% plot(tempo, y_runge_n_lin_C1(:,2),"b")
+% hold on
+% plot(tempo, y_runge_lin_C1(:,2),"r")
+% hold on
+% plot(tempo, y_euler_n_lin_C1(:,2),"g")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,2),"m")
+% xlim([0,2])
+% legend("Não Linear - Runge Kutta", "Não Linear - Euler Explícito", "Linear - Runge Kutta", "Linear - Euler Explícito")
+% title("Posição barra 2 no cenário 1 por Runge-Kutta (4-5) e Euler Explícito")
 
 %% Defininido os espaçoes de estados
 
