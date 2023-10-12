@@ -398,38 +398,38 @@ end
 %% Plot dos gráficos
 
 % gráficos buter
-% figure(1)
-% plot(tempo, K_runge_n_lin_C1(:,1),"b")
-% hold on
-% plot(tempo, K_runge_lin_C1(:,1),"m")
-% hold on
-% plot(tempo, K_euler_n_lin_C1(:,1),"r")
-% hold on
-% plot(tempo, K_euler_lin_C1(:,1),"g")
-% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
-% title("Energia Cinética para o Caso 1")
-% 
-% figure(2)
-% plot(tempo, V_runge_n_lin_C1(:,1),"b")
-% hold on
-% plot(tempo, V_runge_lin_C1(:,1),"m")
-% hold on
-% plot(tempo, V_euler_n_lin_C1(:,1),"r")
-% hold on
-% plot(tempo, V_euler_lin_C1(:,1),"g")
-% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
-% title("Energia Potencial para o Caso 1")
-% 
-% figure(3)
-% plot(tempo, E_runge_n_lin_C1(:,1),"b")
-% hold on
-% plot(tempo, E_runge_lin_C1(:,1),"m")
-% hold on
-% plot(tempo, E_euler_n_lin_C1(:,1),"r")
-% hold on
-% plot(tempo, E_euler_lin_C1(:,1),"g")
-% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
-% title("Energia Mecânica para o Caso 1")
+figure(1)
+plot(tempo, K_runge_n_lin_C1(:,1),"b")
+hold on
+plot(tempo, K_runge_lin_C1(:,1),"m")
+hold on
+plot(tempo, K_euler_n_lin_C1(:,1),"r")
+hold on
+plot(tempo, K_euler_lin_C1(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
+title("Energia Cinética para o Caso 1")
+
+figure(2)
+plot(tempo, V_runge_n_lin_C1(:,1),"b")
+hold on
+plot(tempo, V_runge_lin_C1(:,1),"m")
+hold on
+plot(tempo, V_euler_n_lin_C1(:,1),"r")
+hold on
+plot(tempo, V_euler_lin_C1(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
+title("Energia Potencial para o Caso 1")
+
+figure(3)
+plot(tempo, E_runge_n_lin_C1(:,1),"b")
+hold on
+plot(tempo, E_runge_lin_C1(:,1),"m")
+hold on
+plot(tempo, E_euler_n_lin_C1(:,1),"r")
+hold on
+plot(tempo, E_euler_lin_C1(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
+title("Energia Mecânica para o Caso 1")
 %  
 
 % Plotagens para o item h
