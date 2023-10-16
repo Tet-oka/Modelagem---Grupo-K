@@ -403,21 +403,21 @@ toc
 
 % Gráficos item g
 % 
-% figure(34)
+% figure(20)
 % plot(tempo, y_runge_n_lin_C1(:,2),"b")
 % hold on
 % plot(tempo, y_runge_lin_C1(:,2),"m")
 % legend("Não Linear", "Linear")
 % title("Posição barra 2 Caso 1 por Runge-Kutta (4-5)")
 % 
-% figure(35)
+% figure(21)
 % plot(tempo, y_euler_n_lin_C1(:,2),"g")
 % hold on
 % plot(tempo, y_euler_lin_C1(:,2),"r")
 % legend("Não Linear", "Linear")
 % title("Posição barra 2 Caso 1 por Euler Explícito")
 % 
-% figure(36)
+% figure(22)
 % plot(tempo, y_runge_n_lin_C1(:,2),"b")
 % hold on
 % plot(tempo, y_runge_lin_C1(:,2),"m")
@@ -429,25 +429,31 @@ toc
 % legend("Runge-Kutta (4-5) Não Linear", "Runge-Kutta (4-5) Linear","Euler Explícito Não Linear", "Euler-Explícito (4-5) Linear")
 % title("Posição barra 2 Caso 1")
 % 
-% figure(37)
+% figure(23)
 % plot(tempo, y_runge_n_lin_C1(:,2),"b")
 % hold on
 % plot(tempo, y_euler_n_lin_C1(:,2),"g")
 % legend("Runge Kutta (4-5)", "Euler Explícito")
 % title("Posição barra 2 Caso 1 Não Linearizado")
 % 
-% figure(38)
+% figure(24)
 % plot(tempo, y_runge_lin_C1(:,2),"m")
 % hold on
 % plot(tempo, y_euler_lin_C1(:,2),"r")
 % legend("Runge Kutta (4-5)", "Euler Explícito")
 % title("Posição barra 2 Caso 1 Linearizado")
 % 
-% diferenca = abs(y_runge_n_lin_C1(:,2)-y_euler_n_lin_C1(:,2));
+% diferenca1 = abs(y_runge_n_lin_C1(:,2)-y_euler_n_lin_C1(:,2));
 % 
-% figure(39)
-% plot(tempo, diferenca)
+diferenca2 = abs(y_runge_n_lin_C1(:,2)-y_runge_lin_C1(:,2));
+%
+% figure(25)
+% plot(tempo, diferenca1)
 % title("Diferença entre M1 e M2 para o caso não linearizado")
+%
+figure(26)
+plot(tempo, diferenca2)
+title("Diferença entre modelo linearizado e não linearizado para M1")
 
 
 %% Defininido os espaços de estados
