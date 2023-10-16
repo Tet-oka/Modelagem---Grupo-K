@@ -399,9 +399,6 @@ toc
 % 
 % dif = abs(y_runge_n_lin_C2 - y_euler_n_lin_C2);
 % [M, I] = max(dif);
-
-
-% Gráficos item g
 % 
 % figure(20)
 % plot(tempo, y_runge_n_lin_C1(:,2),"b")
@@ -444,17 +441,16 @@ toc
 % title("Posição barra 2 Caso 1 Linearizado")
 % 
 % diferenca1 = abs(y_runge_n_lin_C1(:,2)-y_euler_n_lin_C1(:,2));
-% 
-diferenca2 = abs(y_runge_n_lin_C1(:,2)-y_runge_lin_C1(:,2));
+% diferenca2 = abs(y_runge_n_lin_C1(:,2)-y_runge_lin_C1(:,2));
 %
 % figure(25)
 % plot(tempo, diferenca1)
 % title("Diferença entre M1 e M2 para o caso não linearizado")
 %
-figure(26)
-plot(tempo, diferenca2)
-title("Diferença entre modelo linearizado e não linearizado para M1")
-
+% figure(26)
+% plot(tempo, diferenca2)
+% title("Diferença entre modelo linearizado e não linearizado para M2")
+% 
 
 %% Defininido os espaços de estados
 
