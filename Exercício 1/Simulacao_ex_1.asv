@@ -25,7 +25,7 @@ fn = wn/(2*pi);
 
 t = 15; %aproximadamente 4 periodos -> 15s
 % Passo de simulação:
-T_sim = 1/10000;
+T_sim = 1/50;
 
 % criando o vetor tempo com passo de simulação igual a T_sim e 4 períodos de oscilação
 tempo = 0:T_sim:t;
@@ -308,16 +308,16 @@ toc
 % legend("Runge-Kutta (4-5)", "Euler Explícito")
 % title("Comparação entre Euler Explícito e Runge-Kutta (4-5) para o caso linearizado - posição barra 1 Caso 1")
 % 
-% figure(9)
-% plot(tempo, E_runge_n_lin_C2(:,1),"b")
-% hold on
-% plot(tempo, E_runge_lin_C2(:,1),"m")
-% hold on
-% plot(tempo, E_euler_n_lin_C2(:,1),"r")
-% hold on
-% plot(tempo, E_euler_lin_C2(:,1),"g")
-% legend("Não Linear por Runge-Kutta (4,5)", "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito")
-% title("Energia Mecânica para o Caso 2")
+figure(9)
+plot(tempo, E_runge_n_lin_C2(:,1),"b")
+%hold on
+%plot(tempo, E_runge_lin_C2(:,1),"m")
+%hold on
+%plot(tempo, E_euler_n_lin_C2(:,1),"r")
+%hold on
+%plot(tempo, E_euler_lin_C2(:,1),"g")
+legend("Não Linear por Runge-Kutta (4,5)"%, "Linear por Runge-Kutta (4,5)", "Não Linear por Euler-Explícito", "Linear por Euler-Explícito"%)
+title("Energia Mecânica para o Caso 2")
 % 
 % figure(10)
 % plot(tempo, y_runge_n_lin_C1(:,2),"b")
@@ -402,52 +402,52 @@ toc
 
 
 % Gráficos item g
-
-figure(34)
-plot(tempo, y_runge_n_lin_C1(:,2),"b")
-hold on
-plot(tempo, y_runge_lin_C1(:,2),"m")
-legend("Não Linear", "Linear")
-title("Posição barra 2 Caso 1 por Runge-Kutta (4-5)")
-
-figure(35)
-plot(tempo, y_euler_n_lin_C1(:,2),"g")
-hold on
-plot(tempo, y_euler_lin_C1(:,2),"r")
-legend("Não Linear", "Linear")
-title("Posição barra 2 Caso 1 por Euler Explícito")
-
-figure(36)
-plot(tempo, y_runge_n_lin_C1(:,2),"b")
-hold on
-plot(tempo, y_runge_lin_C1(:,2),"m")
-hold on
-plot(tempo, y_euler_n_lin_C1(:,2),"g")
-hold on
-plot(tempo, y_euler_lin_C1(:,2),"r")
-xlim([0,1.5])
-legend("Runge-Kutta (4-5) Não Linear", "Runge-Kutta (4-5) Linear","Euler Explícito Não Linear", "Euler-Explícito (4-5) Linear")
-title("Posição barra 2 Caso 1")
-
-figure(37)
-plot(tempo, y_runge_n_lin_C1(:,2),"b")
-hold on
-plot(tempo, y_euler_n_lin_C1(:,2),"g")
-legend("Runge Kutta (4-5)", "Euler Explícito")
-title("Posição barra 2 Caso 1 Não Linearizado")
-
-figure(38)
-plot(tempo, y_runge_lin_C1(:,2),"m")
-hold on
-plot(tempo, y_euler_lin_C1(:,2),"r")
-legend("Runge Kutta (4-5)", "Euler Explícito")
-title("Posição barra 2 Caso 1 Linearizado")
-
-diferenca = y_runge_n_lin_C1(:,2)-y_euler_n_lin_C1(:,2);
-
-figure(39)
-plot(tempo, diferenca)
-title("Diferença entre M1 e M2")
+% 
+% figure(34)
+% plot(tempo, y_runge_n_lin_C1(:,2),"b")
+% hold on
+% plot(tempo, y_runge_lin_C1(:,2),"m")
+% legend("Não Linear", "Linear")
+% title("Posição barra 2 Caso 1 por Runge-Kutta (4-5)")
+% 
+% figure(35)
+% plot(tempo, y_euler_n_lin_C1(:,2),"g")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,2),"r")
+% legend("Não Linear", "Linear")
+% title("Posição barra 2 Caso 1 por Euler Explícito")
+% 
+% figure(36)
+% plot(tempo, y_runge_n_lin_C1(:,2),"b")
+% hold on
+% plot(tempo, y_runge_lin_C1(:,2),"m")
+% hold on
+% plot(tempo, y_euler_n_lin_C1(:,2),"g")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,2),"r")
+% xlim([0,1.5])
+% legend("Runge-Kutta (4-5) Não Linear", "Runge-Kutta (4-5) Linear","Euler Explícito Não Linear", "Euler-Explícito (4-5) Linear")
+% title("Posição barra 2 Caso 1")
+% 
+% figure(37)
+% plot(tempo, y_runge_n_lin_C1(:,2),"b")
+% hold on
+% plot(tempo, y_euler_n_lin_C1(:,2),"g")
+% legend("Runge Kutta (4-5)", "Euler Explícito")
+% title("Posição barra 2 Caso 1 Não Linearizado")
+% 
+% figure(38)
+% plot(tempo, y_runge_lin_C1(:,2),"m")
+% hold on
+% plot(tempo, y_euler_lin_C1(:,2),"r")
+% legend("Runge Kutta (4-5)", "Euler Explícito")
+% title("Posição barra 2 Caso 1 Linearizado")
+% 
+% diferenca = abs(y_runge_n_lin_C1(:,2)-y_euler_n_lin_C1(:,2));
+% 
+% figure(39)
+% plot(tempo, diferenca)
+% title("Diferença entre M1 e M2 para o caso não linearizado")
 
 
 %% Defininido os espaços de estados
