@@ -25,7 +25,7 @@ fn = wn/(2*pi);
 
 t = 15; %aproximadamente 4 periodos -> 15s
 % Passo de simulação:
-T_sim = 1/10000;
+T_sim = 1/100;
 
 % criando o vetor tempo com passo de simulação igual a T_sim e 4 períodos de oscilação
 tempo = 0:T_sim:t;
