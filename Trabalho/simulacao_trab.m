@@ -1,5 +1,5 @@
 % Definição dos parâmetros iniciais da integração
-t = 10; 
+t = 2.5; 
 T_sim = 1/100;
 tempo = 0:T_sim:t;
 %passo máximo ode
@@ -8,8 +8,8 @@ max_step = odeset('MaxStep', T_sim);
 q1_0 = 0; 
 q2_0 = 0;
 theta_0 = 0;
-q1p_0 = -300/3.6;
-q2p_0 = -300/3.6; %Condição de velocidade inicial [m/s];
+q1p_0 = -3;
+q2p_0 = -3; %Condição de velocidade inicial [m/s];
 thetap_0 = 0;
 
 
@@ -39,13 +39,13 @@ title("q2 ponto")
 figure(6)
 plot(tempo, y(:,6))
 title("theta ponto")
-  
+
 
 function dydt = f(t, y_0)
 g = 9.8;
-phi = 0; 
+phi = 11*pi/180; 
 rho = 1.2923; 
-S = (40^2)/1.7; 
+S = (26^2)/1.7; 
 C_pav = 1; 
 M = 88000; 
 m = 2*3000;
@@ -54,7 +54,7 @@ C_D = C_pav*(0.00017*(180*y_0(3)/pi)^2 + 0.01111*180*y_0(3)/pi + 0.15714);
 u_rol = (0.0041+0.000041*y_0(2))*C_pav;
 D_po = 5;
 D_go = 2.2;
-u_long = 60;
+u_long = 70;
 u_v = 0;
 y_ext = 0;
 yponto_ext = 0;
