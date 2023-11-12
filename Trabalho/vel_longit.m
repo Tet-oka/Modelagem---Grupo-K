@@ -1,6 +1,6 @@
 
 %Definição dos parâmetros iniciais da integração
-t = 5; % Período referente a etapa de Free-Roll 
+t = 2; % Período referente a etapa de Free-Roll 
 T_sim = 1/100; % Passo de integração
 tempo = 0:T_sim:t; % Vetor tempo com passo de integração igual a T_sim
 %passo máximo ode
