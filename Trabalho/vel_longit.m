@@ -1,6 +1,6 @@
 
 %Definição dos parâmetros iniciais da integração
-t = 2; % Período referente a etapa de Free-Roll 
+t = 3; % Período referente a etapa de Free-Roll 
 T_sim = 1/100; % Passo de integração
 tempo = 0:T_sim:t; % Vetor tempo com passo de integração igual a T_sim
 %passo máximo ode
@@ -16,7 +16,7 @@ plot(t, y_v(:,2))
 %Defininido os espaços de estados e parâmetros
 function dudt = f(t, u_0)
 g = 9.8;
-alpha = 0; 
+alpha = 12; 
 rho = 1.2923; 
 S = (25^2)/1.7; 
 C_pav = 1; 
