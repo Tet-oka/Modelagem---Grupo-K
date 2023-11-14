@@ -54,7 +54,7 @@ plot(tempo, 180*y(:,3)/pi, "b")
 hold on
 plot(tempo, 180*yL(:,3)/pi, "r")
 legend("Não-linear", "Linear")
-title('Variação de theta em graus')
+title('Variação de theta em graus para Phi=13')
 xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
 
@@ -109,9 +109,18 @@ title("Diferença entre modelo linear e não linear para theta")
 xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
 
+figure(11)
+plot(tempo, y(:,1), "r")
+hold on
+plot(tempo, y(:,2), "g")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+legend('Variação de q1','Variação de q2')
+
+
 function dydt = f(t, y_0)
 g = 9.8;
-phi = 11*pi/180; 
+phi = 13*pi/180; 
 rho = 1.2923; 
 S = (25.6^2)/1.7; 
 C_pav = 8; 
@@ -144,7 +153,7 @@ end
 
 function dyLdt = fL(t, yL_0)
 g = 9.8;
-phi = 11*pi/180; 
+phi = 13*pi/180; 
 rho = 1.2923; 
 S = (25.6^2)/1.7; 
 C_pav = 8; 
