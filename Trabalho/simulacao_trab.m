@@ -1,5 +1,5 @@
 
-% Definição dos parâmetros iniciais da integração
+%% Definição dos parâmetros iniciais da integração
 t = 3; 
 T_sim = 1/100;
 tempo = 0:T_sim:t;
@@ -21,6 +21,7 @@ x0 = [q1_0 q2_0 theta_0 q1p_0 q2p_0 thetap_0 0 300/3.6];
 % a_q1 = -(((c_r + c_t).*y(:,4))/m) + (c_t.*y(:,5))/m + (-(g*m) + k_t.*(-y(:,1) + y(:,2)) + k_r.*(-y(:,1) + y_ext + c_r*yponto_ext))/m;
 % a_q2 = -0.5*(-2*g*M*J_oz + S*rho*C_L*J_oz.*((y(:,8) + u_v).*(y(:,8) + u_v)) + 2*J_oz*k_t.*(y(:,1) - y(:,2)) + M*cos(phi)*D_go*(D_go*(-((2*g*M - S*rho*C_L.*((y(:,8) + u_v).*(y(:,8) + u_v)))*u_rol*(sin(phi) + cos(phi).*y(:,3))) + 2*g*M*(cos(phi) - sin(phi).*y(:,3))) - S*rho*D_po.*((y(:,8) + u_v).*(y(:,8) + u_v))*(cos(phi)*(C_L + C_D.*y(:,3)) + sin(phi)*(C_D - C_L.*y(:,3)))))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go) - J_oz)) + (c_t*J_oz.*y(:,4))/(M*(-(M*(cos(phi)*cos(phi))*(D_go*D_go)) + J_oz)) + (c_t*J_oz.*y(:,5))/(M*M*(cos(phi)*cos(phi))*(D_go*D_go) - M*J_oz);
 
+%% Plot dos gráficos
 
 figure(1)
 plot(tempo, y(:,1), "b")
@@ -117,6 +118,7 @@ xlabel('Tempo (s)')
 ylabel('Posição (m)')
 legend('Variação de q1','Variação de q2')
 
+%% Funções ODE
 
 function dydt = f(t, y_0)
 phi = 13*pi/180; 
@@ -139,7 +141,7 @@ k_r = 13600000;
 c_r = 9700;
 k_t = 11486800;
 c_t = 1021960;
-
+% Os dados que mudam com o chaveamento devem ser inseridos dentro do if/else
 if -y_0(3) < phi
     dydt1 = y_0(4);
     dydt2 = y_0(5);
@@ -185,6 +187,7 @@ k_r = 13600000;
 c_r = 9700;
 k_t = 11486800;
 c_t = 1021960;
+% Os dados que mudam com o chaveamento devem ser inseridos dentro do if/else
 if -yL_0(3) < phi
     dyLdt1 = yL_0(4);
     dyLdt2 = yL_0(5);
