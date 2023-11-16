@@ -137,8 +137,8 @@ u_v = 0;
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
-k_r = 13600000;
-c_r = 9700;
+k_r = 2*13600000;
+c_r = 2*9700;
 k_t = 11486800;
 c_t = 1021960;
 % Os dados que mudam com o chaveamento devem ser inseridos dentro do if/else
@@ -183,8 +183,8 @@ u_v = 0;
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
-k_r = 13600000;
-c_r = 9700;
+k_r = 2*13600000;
+c_r = 2*9700;
 k_t = 11486800;
 c_t = 1021960;
 % Os dados que mudam com o chaveamento devem ser inseridos dentro do if/else
