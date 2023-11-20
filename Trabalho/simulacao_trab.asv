@@ -1,6 +1,6 @@
 
 %% Definição dos parâmetros iniciais da integração
-t = 5; 
+t = 4; 
 T_sim = 1/100;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
@@ -226,12 +226,12 @@ if -y_0(3) < phi
 else
     dydt1 = y_0(5);
     dydt2 = y_0(6);
-    dydt3 = y_0(7);
+    dydt3 = y_0(7); 
     dydt4 = y_0(8);
-    dydt5 = -(((c_r + c_t)*y_0(5))/m) + (c_t*y_0(6))/m + (k_t*(-y_0(1) + y_0(2)) + k_r*(-y_0(1) + y_ext) + c_r*yponto_ext)/m;
-    dydt6 = (c_t*J_oz*y_0(5))/(M*(-(M*(cos(y_0(3))*cos(y_0(3)))*(D_go*D_go)) + J_oz)) + ((-(M*(cos(y_0(3))*cos(y_0(3)))*c_tf*D_fo*D_go) + (c_t + c_tf)*J_oz)*y_0(6))/(M*(M*(cos(y_0(3))*cos(y_0(3)))*(D_go*D_go) - J_oz)) + (cos(y_0(3))*c_tf*D_fo*(-(M*(cos(y_0(3))*cos(y_0(3)))*D_fo*D_go) + J_oz)*y_0(7))/(M*(M*(cos(y_0(3))*cos(y_0(3)))*(D_go*D_go) - J_oz)) + (D_go*J_oz*(y_0(7)*y_0(7)))/(-(M*cos(y_0(3))*cot(y_0(3))*(D_go*D_go)) + csc(y_0(3))*J_oz) - (M*cos(y_0(3))*(D_go*D_go)*(2*g*M*cos(y_0(3)) + sin(y_0(3))*(-2*g*M + S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v)))*u_rol) + J_oz*(S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v)) + 2*k_t*(y_0(1) - y_0(2)) - 2*k_tf*(sin(y_0(3))*D_fo + y_0(2) - y_0(4))) + M*cos(y_0(3))*D_go*(-(S*rho*(sin(y_0(3))*C_D + cos(y_0(3))*C_L)*D_po*((y_0(10) + u_v)*(y_0(10) + u_v))) + 2*cos(y_0(3))*D_fo*k_tf*(sin(y_0(3))*D_fo + y_0(2) - y_0(4))))/(2.*M*(M*(cos(y_0(3))*cos(y_0(3)))*(D_go*D_go) - J_oz)) + (c_tf*(M*(cos(y_0(3))*cos(y_0(3)))*D_fo*D_go - J_oz)*y_0(8))/(M*(M*(cos(y_0(3))*cos(y_0(3)))*(D_go*D_go) - J_oz));
-    dydt7 = (sec(y_0(3))*c_t*D_go*y_0(5))/(M*(D_go*D_go) - sec(y_0(3))*sec(y_0(3))*J_oz) + (sec(y_0(3))*(-(c_tf*D_fo) + (c_t + c_tf)*D_go)*y_0(6))/(-(M*(D_go*D_go)) + sec(y_0(3))*sec(y_0(3))*J_oz) + (c_tf*D_fo*(D_fo - D_go)*y_0(7))/(M*(D_go*D_go) - sec(y_0(3))*sec(y_0(3))*J_oz) + (y_0(7)*y_0(7))/(cot(y_0(3)) - (2*csc(2*y_0(3))*J_oz)/(M*(D_go*D_go))) - (sec(y_0(3))*(S*rho*D_po*((y_0(10) + u_v)*(y_0(10) + u_v))*(C_L + C_D*tan(y_0(3))) + D_go*(-2*g*M + 2*g*M*u_rol*tan(y_0(3)) - S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v))*(1 + u_rol*tan(y_0(3))) + 2*k_t*(-y_0(1) + y_0(2)) + 2*k_tf*(sin(y_0(3))*D_fo + y_0(2) - y_0(4))) - 2*D_fo*k_tf*(sin(y_0(3))*D_fo + y_0(2) - y_0(4))))/(2*M*(D_go*D_go) - 2*(sec(y_0(3))*sec(y_0(3)))*J_oz) + (sec(y_0(3))*c_tf*(D_fo - D_go)*y_0(8))/(-(M*(D_go*D_go)) + sec(y_0(3))*sec(y_0(3))*J_oz);
-    dydt8 = (c_tf*y_0(6))/m_f + (cos(y_0(3))*c_tf*D_fo*y_0(7))/m_f - ((c_rf + c_tf)*y_0(8))/m_f + (k_tf*(sin(y_0(3))*D_fo + y_0(2) - y_0(4)) + k_rf*(-y_0(4) + y_ext) + c_rf*yponto_ext)/m_f;
+    dydt5 = -(((c_r + c_t)*y_0(5))/m) + (c_t*y_0(6))/m + ( + k_t*(-y_0(1) + y_0(2)) + k_r*(-y_0(1) + y_ext) + c_r*yponto_ext)/m;
+    dydt6 = (c_t*J_oz*y_0(5))/(M*(-(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go)) + J_oz)) + ((-(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*c_tf*D_fo*D_go) + (c_t + c_tf)*J_oz)*y_0(6))/(M*(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz)) + (cos(phi + y_0(3))*c_tf*D_fo*(-(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*D_fo*D_go) + J_oz)*y_0(7))/(M*(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz)) - (sin(phi + y_0(3))*D_go*J_oz*(y_0(7)*y_0(7)))/(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz) - (M*cos(phi + y_0(3))*(D_go*D_go)*(2*g*M*cos(phi + y_0(3)) + sin(phi + y_0(3))*(S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v)))*u_rol) + J_oz*(S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v)) - 2*( k_t*(-y_0(1) + y_0(2))) - 2*k_tf*(sin(phi + y_0(3))*D_fo + y_0(2) - y_0(4))) + M*cos(phi + y_0(3))*D_go*(-(S*rho*(sin(phi + y_0(3))*C_D + cos(phi + y_0(3))*C_L)*D_po*((y_0(10) + u_v)*(y_0(10) + u_v))) + 2*cos(phi + y_0(3))*D_fo*k_tf*(sin(phi + y_0(3))*D_fo + y_0(2) - y_0(4))))/(2.*M*(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz)) + (c_tf*(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*D_fo*D_go - J_oz)*y_0(8))/(M*(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz));
+    dydt7 = (sec(phi + y_0(3))*c_t*D_go*y_0(5))/(M*(D_go*D_go) - sec(phi + y_0(3))*sec(phi + y_0(3))*J_oz) + (cos(phi + y_0(3))*(c_tf*D_fo - (c_t + c_tf)*D_go)*y_0(6))/(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go) - J_oz) + (c_tf*D_fo*(D_fo - D_go)*y_0(7))/(M*(D_go*D_go) - sec(phi + y_0(3))*sec(phi + y_0(3))*J_oz) + (M*(D_go*D_go)*tan(phi + y_0(3))*(y_0(7)*y_0(7)))/(M*(D_go*D_go) - sec(phi + y_0(3))*sec(phi + y_0(3))*J_oz) + (sec(phi + y_0(3))*(2*sin(phi + y_0(3))*(D_fo*D_fo)*k_tf - S*rho*C_D*D_po*(y_0(10)*y_0(10))*tan(phi + y_0(3)) - 2*S*rho*C_D*D_po*y_0(10)*u_v*tan(phi + y_0(3)) - S*rho*C_D*D_po*(u_v*u_v)*tan(phi + y_0(3)) - 2*g*M*D_go*u_rol*tan(phi + y_0(3)) + S*rho*C_L*((y_0(10) + u_v)*(y_0(10) + u_v))*(D_go - D_po + D_go*u_rol*tan(phi + y_0(3))) + 2*D_go*k_t*y_0(1) - 2*D_go*k_t*y_0(2) - 2*D_go*k_tf*y_0(2) + 2*D_go*k_tf*y_0(4) - 2*D_fo*k_tf*(sin(phi + y_0(3))*D_go - y_0(2) + y_0(4))))/(2*M*(D_go*D_go) - 2*(sec(phi + y_0(3))*sec(phi + y_0(3)))*J_oz) + (cos(phi + y_0(3))*c_tf*(D_fo - D_go)*y_0(8))/(-(M*(cos(phi + y_0(3))*cos(phi + y_0(3)))*(D_go*D_go)) + J_oz);
+    dydt8 = (c_tf*y_0(6))/m_f + (cos(phi + y_0(3))*c_tf*D_fo*y_0(7))/m_f - ((c_rf + c_tf)*y_0(8))/m_f + ( + k_tf*(sin(phi + y_0(3))*D_fo + y_0(2) - y_0(4)) + k_rf*(-y_0(4) + y_ext) + c_rf*yponto_ext)/m_f;
     dydt9 = y_0(10);
     dydt10 = (-((M+m)*g - C_L*S*rho*((y_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((y_0(10)+u_v)^2)/2)/(M+m);
     dydt = [dydt1; dydt2; dydt3; dydt4; dydt5; dydt6; dydt7; dydt8; dydt9; dydt10];
@@ -282,14 +282,14 @@ if -yL_0(3) < phi
     dyLdt10 = (-((M+m)*g - C_L*S*rho*((yL_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((yL_0(10)+u_v)^2)/2)/(M+m);
     dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
 else
-    dyLdt1 = 1;
-    dyLdt2 = 1;
-    dyLdt3 = 1; 
-    dyLdt4 = 1;
-    dyLdt5 = 1;
-    dyLdt6 = 1;
-    dyLdt7 = 1;
-    dyLdt8 = 1;
+    dyLdt1 = yL_0(5);
+    dyLdt2 = yL_0(6);
+    dyLdt3 = yL_0(7); 
+    dyLdt4 = yL_0(8);
+    dyLdt5 = -(((c_r + c_t)*yL_0(5))/m) + (c_t*yL_0(6))/m + ( + k_t*(-yL_0(1) + yL_0(2)) + k_r*(-yL_0(1) + y_ext) + c_r*yponto_ext)/m;
+    dyLdt6 = (c_t*J_oz*yL_0(5))/(M*(-(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go)) + J_oz)) + ((-(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*c_tf*D_fo*D_go) + (c_t + c_tf)*J_oz)*yL_0(6))/(M*(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz)) + (cos(phi + yL_0(3))*c_tf*D_fo*(-(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*D_fo*D_go) + J_oz)*yL_0(7))/(M*(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz)) - (sin(phi + yL_0(3))*D_go*J_oz*(yL_0(7)*yL_0(7)))/(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz) - (M*cos(phi + yL_0(3))*(D_go*D_go)*(2*g*M*cos(phi + yL_0(3)) + sin(phi + yL_0(3))*(S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v)))*u_rol) + J_oz*(S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v)) - 2*( k_t*(-yL_0(1) + yL_0(2))) - 2*k_tf*(sin(phi + yL_0(3))*D_fo + yL_0(2) - yL_0(4))) + M*cos(phi + yL_0(3))*D_go*(-(S*rho*(sin(phi + yL_0(3))*C_D + cos(phi + yL_0(3))*C_L)*D_po*((yL_0(10) + u_v)*(yL_0(10) + u_v))) + 2*cos(phi + yL_0(3))*D_fo*k_tf*(sin(phi + yL_0(3))*D_fo + yL_0(2) - yL_0(4))))/(2.*M*(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz)) + (c_tf*(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*D_fo*D_go - J_oz)*yL_0(8))/(M*(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz));
+    dyLdt7 = (sec(phi + yL_0(3))*c_t*D_go*yL_0(5))/(M*(D_go*D_go) - sec(phi + yL_0(3))*sec(phi + yL_0(3))*J_oz) + (cos(phi + yL_0(3))*(c_tf*D_fo - (c_t + c_tf)*D_go)*yL_0(6))/(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go) - J_oz) + (c_tf*D_fo*(D_fo - D_go)*yL_0(7))/(M*(D_go*D_go) - sec(phi + yL_0(3))*sec(phi + yL_0(3))*J_oz) + (M*(D_go*D_go)*tan(phi + yL_0(3))*(yL_0(7)*yL_0(7)))/(M*(D_go*D_go) - sec(phi + yL_0(3))*sec(phi + yL_0(3))*J_oz) + (sec(phi + yL_0(3))*(2*sin(phi + yL_0(3))*(D_fo*D_fo)*k_tf - S*rho*C_D*D_po*(yL_0(10)*yL_0(10))*tan(phi + yL_0(3)) - 2*S*rho*C_D*D_po*yL_0(10)*u_v*tan(phi + yL_0(3)) - S*rho*C_D*D_po*(u_v*u_v)*tan(phi + yL_0(3)) - 2*g*M*D_go*u_rol*tan(phi + yL_0(3)) + S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(D_go - D_po + D_go*u_rol*tan(phi + yL_0(3))) + 2*D_go*k_t*yL_0(1) - 2*D_go*k_t*yL_0(2) - 2*D_go*k_tf*yL_0(2) + 2*D_go*k_tf*yL_0(4) - 2*D_fo*k_tf*(sin(phi + yL_0(3))*D_go - yL_0(2) + yL_0(4))))/(2*M*(D_go*D_go) - 2*(sec(phi + yL_0(3))*sec(phi + yL_0(3)))*J_oz) + (cos(phi + yL_0(3))*c_tf*(D_fo - D_go)*yL_0(8))/(-(M*(cos(phi + yL_0(3))*cos(phi + yL_0(3)))*(D_go*D_go)) + J_oz);
+    dyLdt8 = (c_tf*yL_0(6))/m_f + (cos(phi + yL_0(3))*c_tf*D_fo*yL_0(7))/m_f - ((c_rf + c_tf)*yL_0(8))/m_f + ( + k_tf*(sin(phi + yL_0(3))*D_fo + yL_0(2) - yL_0(4)) + k_rf*(-yL_0(4) + y_ext) + c_rf*yponto_ext)/m_f;
     dyLdt9 = yL_0(10);
     dyLdt10 = (-((M+m)*g - C_L*S*rho*((yL_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((yL_0(10)+u_v)^2)/2)/(M+m);
     dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
