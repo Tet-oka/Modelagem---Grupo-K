@@ -1,6 +1,6 @@
 
 %% Definição dos parâmetros iniciais da integração
-t = 12.57; 
+t = 30; 
 T_sim = 1/100;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
@@ -27,6 +27,8 @@ c_tf = 51098;
 k_rf = 3400000;
 c_rf = 2*2425;
 
+k_t*(0.021-0.009) - k_tf*(0.021-0.06+0.023)
+
 %q1 e q2 definidos a partir da posição de equilíbrio estático do sistema em
 %repouso
 
@@ -48,9 +50,9 @@ x0 = [q1_0 q2_0 theta_0 q3_0 q1p_0 q2p_0 thetap_0 q3p_0 pos_ini vel_ini];
 [t, yL] = ode45(@fL, tempo, x0, max_step);
 
 
-C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
-C_D = (0.00017*((180*(y(:,3)+ phi)/pi).^2)) + (0.01111*180*(y(:,3)+ phi)/pi) + 0.15714;
-L = C_L.*0.5.*S.*rho.*(y(:,10)).^2;
+% C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
+% C_D = (0.00017*((180*(y(:,3)+ phi)/pi).^2)) + (0.01111*180*(y(:,3)+ phi)/pi) + 0.15714;
+% L = C_L.*0.5.*S.*rho.*(y(:,10)).^2;
 
 
 
@@ -84,107 +86,107 @@ ylabel('Posição (m)')
 
 figure(2)
 plot(tempo, y(:,2), "b")
-% hold on
-% plot(tempo, yL(:,2), "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, yL(:,2), "r")
+legend("Não-linear", "Linear")
 title('Variação de q2')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(3)
 plot(tempo, y(:,3), "b")
-% hold on
-% plot(tempo, yL(:,3), "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, yL(:,3), "r")
+legend("Não-linear", "Linear")
 title('Variação de theta em rad')
 xlabel('Tempo (s)')
 ylabel('Ângulo (rad)')
 
 figure(4)
 plot(tempo, 180*y(:,3)/pi, "b")
-% hold on
-% plot(tempo, 180*yL(:,3)/pi, "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, 180*yL(:,3)/pi, "r")
+legend("Não-linear", "Linear")
 title('Variação de theta em graus para Phi=13')
 xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
 
-% figure(5)
-% plot(tempo, y(:,5), "b")
-% hold on
-% plot(tempo, yL(:,5), "r")
-% legend("Não-linear", "Linear")
-% title('Velocidade de q1')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (m/s)')
-% 
-% figure(6)
-% plot(tempo, y(:,6), "b")
-% hold on
-% plot(tempo, yL(:,6), "r")
-% legend("Não-linear", "Linear")
-% title('Velocidade de q2')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (m/s)')
-% 
-% figure(7)
-% plot(tempo, y(:,7), "b")
-% hold on
-% plot(tempo, yL(:,7), "r")
-% legend("Não-linear", "Linear")
-% title('Velocidade angular de theta')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (rad/s)')
-% 
-% figure(8)
-% plot(tempo, y(:,9), "b")
-% hold on
-% plot(tempo, yL(:,9), "r")
-% legend("Não-linear", "Linear")
-% title("Deslocamento longitudinal")
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
-% 
+figure(5)
+plot(tempo, y(:,5), "b")
+hold on
+plot(tempo, yL(:,5), "r")
+legend("Não-linear", "Linear")
+title('Velocidade de q1')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(6)
+plot(tempo, y(:,6), "b")
+hold on
+plot(tempo, yL(:,6), "r")
+legend("Não-linear", "Linear")
+title('Velocidade de q2')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(7)
+plot(tempo, y(:,7), "b")
+hold on
+plot(tempo, yL(:,7), "r")
+legend("Não-linear", "Linear")
+title('Velocidade angular de theta')
+xlabel('Tempo (s)')
+ylabel('Velocidade (rad/s)')
+
+figure(8)
+plot(tempo, y(:,9), "b")
+hold on
+plot(tempo, yL(:,9), "r")
+legend("Não-linear", "Linear")
+title("Deslocamento longitudinal")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
 figure(9)
 plot(tempo, y(:,10), "b")
-% hold on
-% plot(tempo, yL(:,10), "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, yL(:,10), "r")
+legend("Não-linear", "Linear")
 title("Velocidade longitudinal")
 xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
 
-% figure(10)
-% plot(tempo, (180/pi)*abs(y(:,3)-yL(:,3)), "b")
-% title("Diferença entre modelo linear e não linear para theta")
-% xlabel('Tempo (s)')
-% ylabel('Diferença (graus)')
+figure(10)
+plot(tempo, (180/pi)*abs(y(:,3)-yL(:,3)), "b")
+title("Diferença entre modelo linear e não linear para theta")
+xlabel('Tempo (s)')
+ylabel('Diferença (graus)')
 
-% figure(11)
-% plot(tempo, abs(y(:,2)-yL(:,2)), "b")
-% hold on
-% plot(tempo, abs(y(:,1)-yL(:,1)), "b")
-% legend("q2", "q1")
-% title("Diferença entre modelo linear e não linear para q1")
-% xlabel('Tempo (s)')
-% ylabel('Diferença (m)')
+figure(11)
+plot(tempo, abs(y(:,2)-yL(:,2)), "b")
+hold on
+plot(tempo, abs(y(:,1)-yL(:,1)), "b")
+legend("q2", "q1")
+title("Diferença entre modelo linear e não linear para q1")
+xlabel('Tempo (s)')
+ylabel('Diferença (m)')
 
-% figure(12)
-% plot(tempo, y(:,1), "r")
-% hold on
-% plot(tempo, y(:,2), "g")
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
-% legend('Variação de q1','Variação de q2')
+figure(12)
+plot(tempo, y(:,1), "r")
+hold on
+plot(tempo, y(:,2), "g")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+legend('Variação de q1','Variação de q2')
 
-% figure(13)
-% plot(tempo, y(:,4), "b")
-% hold on
-% plot(tempo, yL(:,4), "r")
-% legend("Não-linear", "Linear")
-% title('Variação de q3')
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
+figure(13)
+plot(tempo, y(:,4), "b")
+hold on
+plot(tempo, yL(:,4), "r")
+legend("Não-linear", "Linear")
+title('Variação de q3')
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
 
 %% Funções ODE
 
@@ -193,7 +195,7 @@ phi = 13*pi/180;
 g = 9.81;
 rho = 1.2923; 
 S = 96.37; 
-C_pav = 0; 
+C_pav = 1; 
 M = 88000; 
 m = 3000;
 C_L = ((-0.00165*((180*(y_0(3)+ phi)/pi).^2)) + (0.07378*180*(y_0(3)+ phi)/pi) + 0.21999);
@@ -202,7 +204,7 @@ u_rol = (0.0041+0.000041*y_0(10))*C_pav;
 D_po = 5;
 D_go = 2.2;
 D_fo = 20.3;
-u_v = 0;
+u_v = 4;
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -259,7 +261,7 @@ u_rol = (0.0041+0.000041*yL_0(10))*C_pav;
 D_po = 5;
 D_go = 2.2;
 D_fo = 20.3;
-u_v = 0;
+u_v = 4;
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -279,25 +281,24 @@ if -yL_0(3) < phi
     dyLdt2 = yL_0(6);
     dyLdt3 = yL_0(7);
     dyLdt4 = yL_0(8);
-    dyLdt5 = -(((c_r + c_t)*yL_0(5))/m) + (c_t*yL_0(6))/m + (-((S*rho*C_L*(k_r - k_t)*((yL_0(10) + u_v)*(yL_0(10) + u_v)))/k_r) + 2*(k_t*(-yL_0(1) + yL_0(2)) + k_r*(-yL_0(1) + y_ext) + c_r*yponto_ext))/(2.*m);
-   %dyLdt5 = -(((c_r + c_t)*yL_0(5))/m) + (c_t*yL_0(6))/m + (k_t*(-yL_0(1) + yL_0(2)) + k_r*(-yL_0(1) + y_ext) + c_r*yponto_ext)/m;
-    dyLdt6 = -0.5*(J_oz*((S*rho*C_L*(k_r - k_t)*((yL_0(10) + u_v)*(yL_0(10) + u_v)))/k_r + 2*k_t*(yL_0(1) - yL_0(2))) + M*cos(phi)*(D_go*D_go)*(-((2*g*M - S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v)))*u_rol*(sin(phi) + cos(phi)*yL_0(3))) + 2*g*M*(cos(phi) - sin(phi)*yL_0(3))) - M*S*rho*cos(phi)*D_go*D_po*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(cos(phi)*(C_L + C_D*yL_0(3)) + sin(phi)*(C_D - C_L*yL_0(3))))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go) - J_oz)) + (c_t*J_oz*yL_0(5))/(M*(-(M*(cos(phi)*cos(phi))*(D_go*D_go)) + J_oz)) + (c_t*J_oz*yL_0(6))/(M*M*(cos(phi)*cos(phi))*(D_go*D_go) - M*J_oz);
-    dyLdt7 = -0.5*(sec(phi)*(S*rho*D_po*k_r*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(C_D*(tan(phi) + yL_0(3)) + C_L*(1 - tan(phi)*yL_0(3))) + D_go*(S*rho*C_L*k_t*((yL_0(10) + u_v)*(yL_0(10) + u_v)) + k_r*(-(S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(1 + u_rol*(tan(phi) + yL_0(3)))) + 2*(-(g*M) + k_t*(-yL_0(1) + yL_0(2)) + g*M*tan(phi)*yL_0(3) + g*M*u_rol*(tan(phi) + yL_0(3)))))))/((M*(D_go*D_go) - sec(phi)*sec(phi)*J_oz)*k_r) + (sec(phi)*c_t*D_go*yL_0(5))/(M*(D_go*D_go) - sec(phi)*sec(phi)*J_oz) + (sec(phi)*c_t*D_go*yL_0(6))/(-(M*(D_go*D_go)) + sec(phi)*sec(phi)*J_oz);
+    dyLdt5 = -(((c_r+c_t)*yL_0(5))/m)+(c_t*yL_0(6))/m+(k_t*(-yL_0(1)+yL_0(2))+k_r*(-yL_0(1)+y_ext)+c_r*yponto_ext)/m;
+    dyLdt6 = -0.5*(S*rho*C_L*J_oz*((yL_0(10)+u_v)*(yL_0(10)+u_v))+2*J_oz*k_t*(yL_0(1)-yL_0(2))+M*cos(phi)*D_go*(D_go*(-((2*g*M-S*rho*C_L*((yL_0(10)+u_v)*(yL_0(10)+u_v)))*u_rol*(sin(phi)+cos(phi)*yL_0(3)))+2*g*M*(cos(phi)-sin(phi)*yL_0(3)))-S*rho*D_po*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(cos(phi)*(C_L+C_D*yL_0(3))+sin(phi)*(C_D-C_L*yL_0(3)))))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go)-J_oz))+(c_t*J_oz*yL_0(5))/(M*(-(M*(cos(phi)*cos(phi))*(D_go*D_go))+J_oz))+(c_t*J_oz*yL_0(6))/(M*M*(cos(phi)*cos(phi))*(D_go*D_go)-M*J_oz);
+    dyLdt7 = -((sec(phi)*(S*rho*D_po*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(C_D*(tan(phi)+yL_0(3))+C_L*(1-tan(phi)*yL_0(3)))+D_go*(-(S*rho*C_L*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(1+u_rol*(tan(phi)+yL_0(3))))+2*(-(g*M)+k_t*(-yL_0(1)+yL_0(2))+g*M*tan(phi)*yL_0(3)+g*M*u_rol*(tan(phi)+yL_0(3))))))/(2*M*(D_go*D_go)-2*(sec(phi)*sec(phi))*J_oz))+(sec(phi)*c_t*D_go*yL_0(5))/(M*(D_go*D_go)-sec(phi)*sec(phi)*J_oz)+(sec(phi)*c_t*D_go*yL_0(6))/(-(M*(D_go*D_go))+sec(phi)*sec(phi)*J_oz);
     dyLdt8 = 0;
     dyLdt9 = yL_0(10);
     dyLdt10 = (-((M+m)*g - C_L*S*rho*((yL_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((yL_0(10)+u_v)^2)/2)/(M+m);
     dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
 else
-%     dyLdt1 = yL_0(5); ERRADO
-%     dyLdt2 = yL_0(6);
-%     dyLdt3 = yL_0(7); 
-%     dyLdt4 = yL_0(8);
-%     dyLdt5 = -(((c_r + c_t)*yL_0(5))/m) + (c_t*yL_0(6))/m + (k_t*(-yL_0(1) + yL_0(2)) + k_r*(-yL_0(1) + y_ext) + c_r*yponto_ext)/m;
-%     dyLdt6 = (c_t*J_oz*yL_0(5))/(M*(-(M*(D_go*D_go)) + J_oz)) + ((-(M*c_tf*D_fo*D_go) + (c_t + c_tf)*J_oz)*yL_0(6))/(M*(M*(D_go*D_go) - J_oz)) + (c_tf*D_fo*(-(M*D_fo*D_go) + J_oz)*yL_0(7))/(M*(M*(D_go*D_go) - J_oz)) + (M*(D_go*D_go)*(-2*g*M + (2*g*M - S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v)))*u_rol*yL_0(3)) - J_oz*(S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v)) - 2*(k_t*(-yL_0(1) + yL_0(2)) + k_tf*(yL_0(2) + D_fo*yL_0(3) - yL_0(4)))) + M*D_go*(S*rho*D_po*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(C_L + C_D*yL_0(3)) - 2*D_fo*k_tf*(yL_0(2) + D_fo*yL_0(3) - yL_0(4))))/(2.*M*(M*(D_go*D_go) - J_oz)) + (c_tf*(M*D_fo*D_go - J_oz)*yL_0(8))/(M*(M*(D_go*D_go) - J_oz));
-%     dyLdt7 = (c_t*D_go*yL_0(5))/(M*(D_go*D_go) - J_oz) + ((c_tf*D_fo - (c_t + c_tf)*D_go)*yL_0(6))/(M*(D_go*D_go) - J_oz) + (c_tf*D_fo*(D_fo - D_go)*yL_0(7))/(M*(D_go*D_go) - J_oz) + (-(S*rho*D_po*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(C_L + C_D*yL_0(3))) + D_go*(S*rho*C_L*((yL_0(10) + u_v)*(yL_0(10) + u_v))*(1 + u_rol*yL_0(3)) - 2*(-(g*M) + k_t*(-yL_0(1) + yL_0(2)) + D_fo*k_tf*yL_0(3) + g*M*u_rol*yL_0(3) + k_tf*(yL_0(2) - yL_0(4)))) + 2*D_fo*k_tf*(yL_0(2) + D_fo*yL_0(3) - yL_0(4)))/(2*M*(D_go*D_go) - 2*J_oz) + (c_tf*(D_fo - D_go)*yL_0(8))/(-(M*(D_go*D_go)) + J_oz);
-%     dyLdt8 = (c_tf*yL_0(6))/m_f + (c_tf*D_fo*yL_0(7))/m_f - ((c_rf + c_tf)*yL_0(8))/m_f + (k_tf*(yL_0(2) + D_fo*yL_0(3) - yL_0(4)) + k_rf*(-yL_0(4) + y_ext) + c_rf*yponto_ext)/m_f;
-%     dyLdt9 = yL_0(10);
-%     dyLdt10 = (-((M+m)*g - C_L*S*rho*((yL_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((yL_0(10)+u_v)^2)/2)/(M+m);
-%     dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
+    dyLdt1 = yL_0(5); 
+    dyLdt2 = yL_0(6);
+    dyLdt3 = yL_0(7); 
+    dyLdt4 = yL_0(8);
+    dyLdt5 = -(((c_r+c_t)*yL_0(5))/m)+(c_t*yL_0(6))/m+(k_t*(-yL_0(1)+yL_0(2))+k_r*(-yL_0(1)+y_ext)+c_r*yponto_ext)/m;
+    dyLdt6 = (c_t*J_oz*yL_0(5))/(M*(-(M*(cos(phi)*cos(phi))*(D_go*D_go))+J_oz))+((-(M*(cos(phi)*cos(phi))*c_tf*D_fo*D_go)+(c_t+c_tf)*J_oz)*yL_0(6))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go)-J_oz))+(cos(phi)*c_tf*D_fo*(-(M*(cos(phi)*cos(phi))*D_fo*D_go)+J_oz)*yL_0(7))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go)-J_oz))-(M*cos(phi)*(D_go*D_go)*(-((2*g*M-S*rho*C_L*((yL_0(10)+u_v)*(yL_0(10)+u_v)))*u_rol*(sin(phi)+cos(phi)*yL_0(3)))+2*g*M*(cos(phi)-sin(phi)*yL_0(3)))+M*cos(phi)*D_go*(D_fo*D_fo*k_tf*(sin(2*phi)+2*cos(2*phi)*yL_0(3))-S*rho*D_po*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(cos(phi)*(C_L+C_D*yL_0(3))+sin(phi)*(C_D-C_L*yL_0(3)))+2*cos(phi)*D_fo*k_tf*(yL_0(2)-yL_0(4)))+J_oz*(S*rho*C_L*((yL_0(10)+u_v)*(yL_0(10)+u_v))+2*k_t*(yL_0(1)-yL_0(2))-2*k_tf*(yL_0(2)+D_fo*(sin(phi)+cos(phi)*yL_0(3))-yL_0(4))))/(2.*M*(M*(cos(phi)*cos(phi))*(D_go*D_go)-J_oz))+(c_tf*(M*(cos(phi)*cos(phi))*D_fo*D_go-J_oz)*yL_0(8))/(M*(M*(cos(phi)*cos(phi))*(D_go*D_go)-J_oz));
+    dyLdt7 = (sec(phi)*c_t*D_go*yL_0(5))/(M*(D_go*D_go)-sec(phi)*sec(phi)*J_oz)+(sec(phi)*(-(c_tf*D_fo)+(c_t+c_tf)*D_go)*yL_0(6))/(-(M*(D_go*D_go))+sec(phi)*sec(phi)*J_oz)+(c_tf*D_fo*(D_fo-D_go)*yL_0(7))/(M*(D_go*D_go)-sec(phi)*sec(phi)*J_oz)-(sec(phi)*(-(sec(phi)*(D_fo*D_fo)*k_tf*(sin(2*phi)+2*cos(2*phi)*yL_0(3)))+S*rho*D_po*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(C_D*(tan(phi)+yL_0(3))+C_L*(1-tan(phi)*yL_0(3)))+D_go*(2*D_fo*k_tf*(sin(phi)+cos(phi)*yL_0(3))-S*rho*C_L*((yL_0(10)+u_v)*(yL_0(10)+u_v))*(1+u_rol*(tan(phi)+yL_0(3)))+2*(-(g*M)+k_t*(-yL_0(1)+yL_0(2))+g*M*(tan(phi)*yL_0(3)+u_rol*(tan(phi)+yL_0(3)))+k_tf*(yL_0(2)-yL_0(4))))+2*D_fo*k_tf*(-yL_0(2)+yL_0(4))))/(2*M*(D_go*D_go)-2*(sec(phi)*sec(phi))*J_oz)+(sec(phi)*c_tf*(D_fo-D_go)*yL_0(8))/(-(M*(D_go*D_go))+sec(phi)*sec(phi)*J_oz);
+    dyLdt8 = (c_tf*yL_0(6))/m_f+(cos(phi)*c_tf*D_fo*yL_0(7))/m_f-((c_rf+c_tf)*yL_0(8))/m_f+(k_tf*(yL_0(2)+D_fo*(sin(phi)+cos(phi)*yL_0(3))-yL_0(4))+k_rf*(-yL_0(4)+y_ext)+c_rf*yponto_ext)/m_f;
+    dyLdt9 = yL_0(10);
+    dyLdt10 = (-((M+m)*g - C_L*S*rho*((yL_0(10)+u_v)^2)/2)*(u_rol) - C_D*S*rho*((yL_0(10)+u_v)^2)/2)/(M+m);
+    dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
 end
 end
