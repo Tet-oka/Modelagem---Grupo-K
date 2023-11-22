@@ -1,6 +1,6 @@
 
 %% Definição dos parâmetros iniciais da integração
-t = 10; 
+t = 400; 
 T_sim = 1/100;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
