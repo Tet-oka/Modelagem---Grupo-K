@@ -76,6 +76,9 @@ xxL0=yL0;
 
 gru=yy(:,2)-yyL(:,2);
 
+for i = 1:length(yyL)
+    yyL(i,3)=yyL(i,3)-13*pi/180;
+end
 
 y = [y;yy];
 yL = [yL;yyL];
