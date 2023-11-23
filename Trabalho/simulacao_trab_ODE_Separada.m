@@ -1,7 +1,7 @@
 
 %% Definição dos parâmetros iniciais da integração
 t = 10; 
-T_sim = 1/100;
+T_sim = 1/500;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
 max_step = odeset('MaxStep', T_sim);
@@ -117,11 +117,6 @@ title('Variação de q1')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
-figure(56)
-plot(tempot,gru, "b")
-title('Variação de gru')
-xlabel('Tempo (s)')
-ylabel('Posição (m)')
 
 figure(2)
 plot(tempo, y(:,2), "b")
