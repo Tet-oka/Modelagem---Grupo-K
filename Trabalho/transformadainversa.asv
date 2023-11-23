@@ -43,7 +43,7 @@ hold on
 plot(t_t, transt, "y")
 grid on
 grid minor
-title("Região de atuação do modelo na transformada inversa de Laplace para theta - Impulso")
+title("Transformada inversa de Laplace para theta - Impulso")
 xlabel('Tempo (s)')
 ylabel('Amplitude de Theta (radianos)')
 p = patch([0 0 5 5],[-0.4 0.1 0.1 -0.4],'');

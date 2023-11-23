@@ -156,8 +156,7 @@ figure(2)
 plot(intervalovento, resp_real(3:4,:), "b")
 hold on
 plot(intervalovento, relf(3,:), "r")
-hold on
-plot(intervalovento, relf(4,:), "c")
+
 legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo" )
 grid on
 grid minor
@@ -240,8 +239,6 @@ figure(3)
 plot(intervaloang*180/pi, resp_real(3:4,:), "b")
 hold on
 plot(intervaloang*180/pi, relf(3,:), "r")
-hold on
-plot(intervaloang*180/pi, relf(4,:), "c")
 grid on
 grid minor
 legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo" )

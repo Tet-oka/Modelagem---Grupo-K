@@ -112,6 +112,8 @@ figure(1)
 plot(tempo, y(:,1), "b")
 hold on
 plot(tempo, yL(:,1), "r")
+grid on
+grid minor
 legend("Não-linear", "Linear")
 title('Variação de q1')
 xlabel('Tempo (s)')
@@ -126,6 +128,8 @@ hold on
 plot(tempot, yy(:,2), "g")
 hold on
 plot(tempot, yyL(:,2), "m")
+grid on
+grid minor
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de q2')
 xlabel('Tempo (s)')
@@ -139,6 +143,8 @@ hold on
 plot(tempot, yy(:,3), "g")
 hold on
 plot(tempot, yyL(:,3), "m")
+grid on
+grid minor
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de theta em rad')
 xlabel('Tempo (s)')
@@ -152,16 +158,20 @@ hold on
 plot(tempot, 180*yy(:,3)/pi, "g")
 hold on
 plot(tempot, 180*yyL(:,3)/pi, "m")
+grid on
+grid minor
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de theta em graus para Phi=13')
 xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
-% 
+
 % figure(5)
 % plot(tempo, y(:,5), "b")
 % hold on
 % plot(tempo, yL(:,5), "r")
 % legend("Não-linear", "Linear")
+% grid on
+% grid minor
 % title('Velocidade de q1')
 % xlabel('Tempo (s)')
 % ylabel('Velocidade (m/s)')
@@ -171,6 +181,8 @@ ylabel('Ângulo (graus)')
 % hold on
 % plot(tempo, yL(:,6), "r")
 % legend("Não-linear", "Linear")
+% grid on
+% grid minor
 % title('Velocidade de q2')
 % xlabel('Tempo (s)')
 % ylabel('Velocidade (m/s)')
@@ -180,6 +192,8 @@ ylabel('Ângulo (graus)')
 % hold on
 % plot(tempo, yL(:,7), "r")
 % legend("Não-linear", "Linear")
+% grid on
+% grid minor
 % title('Velocidade angular de theta')
 % xlabel('Tempo (s)')
 % ylabel('Velocidade (rad/s)')
@@ -189,6 +203,8 @@ ylabel('Ângulo (graus)')
 % hold on
 % plot(tempo, yL(:,9), "r")
 % legend("Não-linear", "Linear")
+% grid on
+% grid minor
 % title("Deslocamento longitudinal")
 % xlabel('Tempo (s)')
 % ylabel('Posição (m)')
@@ -198,12 +214,16 @@ ylabel('Ângulo (graus)')
 % hold on
 % plot(tempo, yL(:,10), "r")
 % legend("Não-linear", "Linear")
+% grid on
+% grid minor
 % title("Velocidade longitudinal")
 % xlabel('Tempo (s)')
 % ylabel('Velocidade (m/s)')
 % 
 % figure(10)
 % plot(tempo, (180/pi)*abs(y(:,3)-yL(:,3)), "b")
+% grid on
+% grid minor
 % title("Diferença entre modelo linear e não linear para theta")
 % xlabel('Tempo (s)')
 % ylabel('Diferença (graus)')
@@ -212,33 +232,41 @@ ylabel('Ângulo (graus)')
 % plot(tempo, abs(y(:,2)-yL(:,2)), "b")
 % hold on
 % plot(tempo, abs(y(:,1)-yL(:,1)), "b")
+% grid on
+% grid minor
 % legend("q2", "q1")
 % title("Diferença entre modelo linear e não linear para q1")
 % xlabel('Tempo (s)')
 % ylabel('Diferença (m)')
-% 
+
 % figure(12)
 % plot(tempo, y(:,1), "r")
 % hold on
 % plot(tempo, y(:,2), "g")
 % xlabel('Tempo (s)')
 % ylabel('Posição (m)')
+% grid on
+% grid minor
 % legend('Variação de q1','Variação de q2')
-% 
+
 figure(13)
 plot(tempo, y(:,4), "b")
-% hold on
-% plot(tempo, yL(:,4), "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, yL(:,4), "r")
+legend("Não-linear", "Linear")
+grid on
+grid minor
 title('Variação de q3')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(14)
 plot(tempo, y(:,8), "b")
-% hold on
-% plot(tempo, yL(:,8), "r")
-% legend("Não-linear", "Linear")
+hold on
+plot(tempo, yL(:,8), "r")
+legend("Não-linear", "Linear")
+grid on
+grid minor
 title('Variação de q3ponto')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
