@@ -83,6 +83,9 @@ end
 y = [y;yy];
 yL = [yL;yyL];
 
+dq2 = diff(y(:,6))./diff(tempo);
+t=rms(dq2)
+
 % C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
 % C_D = (0.00017*((180*(y(:,3)+ phi)/pi).^2)) + (0.01111*180*(y(:,3)+ phi)/pi) + 0.15714;
 % L = C_L.*0.5.*S.*rho.*(y(:,10)).^2;
@@ -246,7 +249,16 @@ plot(tempo, y(:,8), "b")
 % legend("Não-linear", "Linear")
 title('Variação de q3ponto')
 xlabel('Tempo (s)')
-ylabel('Posição (m)')
+ylabel('Velcidade (m/s)')
+
+figure(15)
+plot(tempo(2:end), dq2(:,1), "b")
+% hold on
+% plot(tempo, yL(:,8), "r")
+% legend("Não-linear", "Linear")
+title('Aceleração de G',['C_{pav}=',int2str(C_pav)])
+xlabel('Tempo (s)')
+ylabel('Aceleração (m/s^2)')
 
 %% Funções ODE
 
