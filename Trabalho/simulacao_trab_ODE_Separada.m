@@ -1,7 +1,7 @@
 
 %% Definição dos parâmetros iniciais da integração
-t = 7.5; 
-T_sim = 1/100;
+t = 15; 
+T_sim = 1/1000;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
 max_step = odeset('MaxStep', T_sim);
@@ -55,15 +55,20 @@ while y(h,9)~=y(h+1,9)
     h=h+1;
 end
 
+j=1;
+while yL(j,9)~=yL(j+1,9)
+    j=j+1;
+end
 
 y0=y(h-1,:);
-yL0=yL(h-1,:);
+yL0=yL(j-1,:);
 
 y=y(1:h-1,:);
-yL=yL(1:h-1,:);
+yL=yL(1:j-1,:);
 
 
 tempot = tempo(h:end);
+tempotL = tempo(j:end);
 
 yL0(3)=yL0(3)+13*pi/180;
 yL0(8)=yL0(7)*D_fo*cos(yL0(3));
@@ -72,9 +77,8 @@ xx0=y0;
 xxL0=yL0;
 
 [tt, yy] = ode45(@ff, tempot, xx0, max_step);
-[tt, yyL] = ode45(@ffL, tempot, xxL0, max_step);
+[tt, yyL] = ode45(@ffL, tempotL, xxL0, max_step);
 
-gru=yy(:,2)-yyL(:,2);
 
 for i = 1:length(yyL)
     yyL(i,3)=yyL(i,3)-13*pi/180;
@@ -84,7 +88,7 @@ y = [y;yy];
 yL = [yL;yyL];
 
 dq2 = diff(y(:,6))./diff(tempo);
-t=rms(dq2)
+t=rms(dq2);
 
 % C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
 % C_D = (0.00017*((180*(y(:,3)+ phi)/pi).^2)) + (0.01111*180*(y(:,3)+ phi)/pi) + 0.15714;
@@ -120,12 +124,6 @@ title('Variação de q1')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
-figure(56)
-plot(tempot,gru, "b")
-title('Variação de gru')
-xlabel('Tempo (s)')
-ylabel('Posição (m)')
-
 figure(2)
 plot(tempo, y(:,2), "b")
 hold on
@@ -133,7 +131,7 @@ plot(tempo, yL(:,2), "r")
 hold on
 plot(tempot, yy(:,2), "g")
 hold on
-plot(tempot, yyL(:,2), "m")
+plot(tempotL, yyL(:,2), "m")
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de q2')
 xlabel('Tempo (s)')
@@ -146,7 +144,7 @@ plot(tempo, yL(:,3), "r")
 hold on
 plot(tempot, yy(:,3), "g")
 hold on
-plot(tempot, yyL(:,3), "m")
+plot(tempotL, yyL(:,3), "m")
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de theta em rad')
 xlabel('Tempo (s)')
@@ -159,7 +157,7 @@ plot(tempo, 180*yL(:,3)/pi, "r")
 hold on
 plot(tempot, 180*yy(:,3)/pi, "g")
 hold on
-plot(tempot, 180*yyL(:,3)/pi, "m")
+plot(tempotL, 180*yyL(:,3)/pi, "m")
 legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de theta em graus para Phi=13')
 xlabel('Tempo (s)')
