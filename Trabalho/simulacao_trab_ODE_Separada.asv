@@ -1,7 +1,7 @@
 
 %% Definição dos parâmetros iniciais da integração
 t = 30; 
-T_sim = 1/50;
+T_sim = 1/10;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
 max_step = odeset('MaxStep', T_sim);
@@ -85,10 +85,10 @@ for i = 1:length(yyL)
     yyL(i,3)=yyL(i,3)-13*pi/180;
 end
 
-y = [y;yy];
-yL = [yL;yyL];
+y_C = [y;yy];
+yL_C = [yL;yyL];
 
-dq2 = diff(y(:,6))./diff(tempo);
+dq2 = diff(y_C(:,6))./diff(tempo);
 t=rms(dq2);
 
 % C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
@@ -122,10 +122,7 @@ hold on
 plot(tempo, yL(:,1), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.2 0.2 0.2 -0.2],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Variação de q1')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
@@ -136,10 +133,8 @@ hold on
 plot(tempo, yL(:,2), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.3 0.4 0.4 -0.3],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
+%legend("Não-linear", "Linear", "Não-linear", "Linear")
 title('Variação de q2')
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
@@ -150,10 +145,7 @@ hold on
 plot(tempo, yL(:,3), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.25 0.05 0.05 -0.25],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Variação de theta em rad')
 xlabel('Tempo (s)')
 ylabel('Ângulo (rad)')
@@ -164,10 +156,7 @@ hold on
 plot(tempo, 180*yL(:,3)/pi, "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-16 2 2 -16],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Variação de theta em graus para Phi=13')
 xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
@@ -178,10 +167,7 @@ hold on
 plot(tempo, yL(:,5), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 1.5 1.5 -3],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Velocidade de q1')
 xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
@@ -192,10 +178,7 @@ hold on
 plot(tempo, yL(:,6), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 3 3 -3],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Velocidade de q2')
 xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
@@ -206,10 +189,7 @@ hold on
 plot(tempo, yL(:,7), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.15 0.15 0.15 -0.15],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title('Velocidade angular de theta')
 xlabel('Tempo (s)')
 ylabel('Velocidade (rad/s)')
@@ -220,10 +200,7 @@ hold on
 plot(tempo, yL(:,9), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[0 2500 2500 0],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title("Deslocamento longitudinal")
 xlabel('Tempo (s)')
 ylabel('Posição (m)')
@@ -234,51 +211,38 @@ hold on
 plot(tempo, yL(:,10), "r")
 grid on
 grid minor
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[50 85 85 50],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("Não-linear", "Linear", "Free-roll")
+legend("Não-linear", "Linear")
 title("Velocidade longitudinal")
 xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
 
 figure(10)
 plot(tempo, (180/pi)*abs(y(:,3)-yL(:,3)), "b")
-grid on
-grid minor
 title("Diferença entre modelo linear e não linear para theta")
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0 0.5 0.5 0],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-legend("", "Free-roll")
 xlabel('Tempo (s)')
 ylabel('Diferença (graus)')
 
-% figure(11)
-% plot(tempo, abs(y(:,2)-yL(:,2)), "b")
-% hold on
-% plot(tempo, abs(y(:,1)-yL(:,1)), "b")
-% grid on
-% grid minor
-% legend("q2", "q1")
-% title("Diferença entre modelo linear e não linear para q1")
-% xlabel('Tempo (s)')
-% ylabel('Diferença (m)')
+figure(11)
+plot(tempo, abs(y(:,2)-yL(:,2)), "b")
+hold on
+plot(tempo, abs(y(:,1)-yL(:,1)), "b")
+legend("q2", "q1")
+title("Diferença entre modelo linear e não linear para q1")
+xlabel('Tempo (s)')
+ylabel('Diferença (m)')
 
-% figure(12)
-% plot(tempo, y(:,1), "r")
-% hold on
-% plot(tempo, y(:,2), "g")
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
-% legend('Variação de q1','Variação de q2')
+figure(12)
+plot(tempo, y(:,1), "r")
+hold on
+plot(tempo, y(:,2), "g")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+legend('Variação de q1','Variação de q2')
 
 figure(13)
 plot(tempo, y(:,4), "b")
 hold on
 plot(tempo, yL(:,4), "r")
-grid on
-grid minor
 legend("Não-linear", "Linear")
 title('Variação de q3')
 xlabel('Tempo (s)')
@@ -286,27 +250,19 @@ ylabel('Posição (m)')
 
 figure(14)
 plot(tempo, y(:,8), "b")
-hold on
-plot(tempo, yL(:,8), "r")
-grid on
-grid minor
-legend("Não-linear", "Linear")
+% hold on
+% plot(tempo, yL(:,8), "r")
+% legend("Não-linear", "Linear")
 title('Variação de q3ponto')
 xlabel('Tempo (s)')
 ylabel('Velcidade (m/s)')
 
 figure(15)
-plot(tempo(2:end), (dq2(:,1)./g), "b")
-grid on
-grid minor
+plot(tempo(2:end), dq2(:,1), "b")
 % hold on
 % plot(tempo, yL(:,8), "r")
 % legend("Não-linear", "Linear")
-p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 3 3 -3],'');
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
-title('Carga inercial em q2',['C_{pav}=',int2str(C_pav)])
-legend("", "Free-roll")
+title('Aceleração de G',['C_{pav}=',int2str(C_pav)])
 xlabel('Tempo (s)')
 ylabel('Aceleração (m/s^2)')
 
