@@ -85,10 +85,11 @@ for i = 1:length(yyL)
     yyL(i,3)=yyL(i,3)-13*pi/180;
 end
 
-y = [y;yy];
-yL = [yL;yyL];
+yc = [y;yy];
+ycL = [yL;yyL];
 
-dq2 = diff(y(:,6))./diff(tempo);
+dq2 = diff(yc(:,6))./diff(tempo);
+dq2L = diff(ycL(:,6))./diff(tempo);
 t=rms(dq2);
 
 % C_L = (-0.00165*((180*(y(:,3)+ phi)/pi).^2)) + (0.07378*180*(y(:,3)+ phi)/pi) + 0.21999;
@@ -117,9 +118,9 @@ t=rms(dq2);
 %% Plot dos gráficos
 
 figure(1)
-plot(tempo, y(:,1), "b")
+plot(tempo, yc(:,1), "b")
 hold on
-plot(tempo, yL(:,1), "r")
+plot(tempo, ycL(:,1), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.2 0.2 0.2 -0.2],'');
@@ -131,9 +132,9 @@ xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(2)
-plot(tempo, y(:,2), "b")
+plot(tempo, yc(:,2), "b")
 hold on
-plot(tempo, yL(:,2), "r")
+plot(tempo, ycL(:,2), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.3 0.4 0.4 -0.3],'');
@@ -145,9 +146,9 @@ xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(3)
-plot(tempo, y(:,3), "b")
+plot(tempo, yc(:,3), "b")
 hold on
-plot(tempo, yL(:,3), "r")
+plot(tempo, ycL(:,3), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.25 0.05 0.05 -0.25],'');
@@ -159,9 +160,9 @@ xlabel('Tempo (s)')
 ylabel('Ângulo (rad)')
 
 figure(4)
-plot(tempo, 180*y(:,3)/pi, "b")
+plot(tempo, 180*yc(:,3)/pi, "b")
 hold on
-plot(tempo, 180*yL(:,3)/pi, "r")
+plot(tempo, 180*ycL(:,3)/pi, "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-16 2 2 -16],'');
@@ -173,9 +174,9 @@ xlabel('Tempo (s)')
 ylabel('Ângulo (graus)')
 
 figure(5)
-plot(tempo, y(:,5), "b")
+plot(tempo, yc(:,5), "b")
 hold on
-plot(tempo, yL(:,5), "r")
+plot(tempo, ycL(:,5), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 1.5 1.5 -3],'');
@@ -187,9 +188,9 @@ xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
 
 figure(6)
-plot(tempo, y(:,6), "b")
+plot(tempo, yc(:,6), "b")
 hold on
-plot(tempo, yL(:,6), "r")
+plot(tempo, ycL(:,6), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 3 3 -3],'');
@@ -201,9 +202,9 @@ xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
 
 figure(7)
-plot(tempo, y(:,7), "b")
+plot(tempo, yc(:,7), "b")
 hold on
-plot(tempo, yL(:,7), "r")
+plot(tempo, ycL(:,7), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-0.15 0.15 0.15 -0.15],'');
@@ -215,9 +216,9 @@ xlabel('Tempo (s)')
 ylabel('Velocidade (rad/s)')
 
 figure(8)
-plot(tempo, y(:,9), "b")
+plot(tempo, yc(:,9), "b")
 hold on
-plot(tempo, yL(:,9), "r")
+plot(tempo, ycL(:,9), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[0 2500 2500 0],'');
@@ -229,9 +230,9 @@ xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(9)
-plot(tempo, y(:,10), "b")
+plot(tempo, yc(:,10), "b")
 hold on
-plot(tempo, yL(:,10), "r")
+plot(tempo, ycL(:,10), "r")
 grid on
 grid minor
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[50 85 85 50],'');
@@ -243,7 +244,7 @@ xlabel('Tempo (s)')
 ylabel('Velocidade (m/s)')
 
 figure(10)
-plot(tempo, (180/pi)*abs(y(:,3)-yL(:,3)), "b")
+plot(tempo, (180/pi)*abs(yc(:,3)-ycL(:,3)), "b")
 grid on
 grid minor
 title("Diferença entre modelo linear e não linear para theta")
@@ -255,28 +256,28 @@ xlabel('Tempo (s)')
 ylabel('Diferença (graus)')
 
 % figure(11)
-% plot(tempo, abs(y(:,2)-yL(:,2)), "b")
+% plot(tempo, abs(yc(:,2)-ycL(:,2)), "b")
 % hold on
-% plot(tempo, abs(y(:,1)-yL(:,1)), "b")
+% plot(tempo, abs(yc(:,1)-ycL(:,1)), "b")
 % grid on
 % grid minor
 % legend("q2", "q1")
 % title("Diferença entre modelo linear e não linear para q1")
 % xlabel('Tempo (s)')
 % ylabel('Diferença (m)')
-
+% 
 % figure(12)
-% plot(tempo, y(:,1), "r")
+% plot(tempo, yc(:,1), "r")
 % hold on
-% plot(tempo, y(:,2), "g")
+% plot(tempo, yc(:,2), "g")
 % xlabel('Tempo (s)')
 % ylabel('Posição (m)')
 % legend('Variação de q1','Variação de q2')
 
 figure(13)
-plot(tempo, y(:,4), "b")
+plot(tempo, yc(:,4), "b")
 hold on
-plot(tempo, yL(:,4), "r")
+plot(tempo, ycL(:,4), "r")
 grid on
 grid minor
 legend("Não-linear", "Linear")
@@ -285,9 +286,9 @@ xlabel('Tempo (s)')
 ylabel('Posição (m)')
 
 figure(14)
-plot(tempo, y(:,8), "b")
+plot(tempo, yc(:,8), "b")
 hold on
-plot(tempo, yL(:,8), "r")
+plot(tempo, ycL(:,8), "r")
 grid on
 grid minor
 legend("Não-linear", "Linear")
@@ -300,13 +301,177 @@ plot(tempo(2:end), (dq2(:,1)./g), "b")
 grid on
 grid minor
 % hold on
-% plot(tempo, yL(:,8), "r")
+% plot(tempo, ycL(:,8), "r")
 % legend("Não-linear", "Linear")
 p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[-3 3 3 -3],'');
 set(p,'FaceAlpha',0.1)
 set(p,'EdgeColor','none')
 title('Carga inercial em q2',['C_{pav}=',int2str(C_pav)])
 legend("", "Free-roll")
+xlabel('Tempo (s)')
+ylabel('Aceleração (m/s^2)')
+
+
+%% Plot dos gráficos antes do toque
+
+figure(101)
+plot(tempofr, y(:,1), "b")
+hold on
+plot(tempofrL, yL(:,1), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Variação de q1 durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
+figure(102)
+plot(tempofr, y(:,2), "b")
+hold on
+plot(tempofrL, yL(:,2), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Variação de q2 durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
+figure(103)
+plot(tempofr, y(:,3), "b")
+hold on
+plot(tempofrL, yL(:,3), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Variação de theta em rad durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Ângulo (rad)')
+
+figure(104)
+plot(tempofr, 180*y(:,3)/pi, "b")
+hold on
+plot(tempofrL, 180*yL(:,3)/pi, "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Variação de theta em graus para Phi=13 durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Ângulo (graus)')
+
+figure(105)
+plot(tempofr, y(:,5), "b")
+hold on
+plot(tempofrL, yL(:,5), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Velocidade de q1 durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(106)
+plot(tempofr, y(:,6), "b")
+hold on
+plot(tempofrL, yL(:,6), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Velocidade de q2 durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(107)
+plot(tempofr, y(:,7), "b")
+hold on
+plot(tempofrL, yL(:,7), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title('Velocidade angular de theta durante o free-roll')
+xlabel('Tempo (s)')
+ylabel('Velocidade (rad/s)')
+
+figure(108)
+plot(tempofr, y(:,9), "b")
+hold on
+plot(tempofrL, yL(:,9), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title("Deslocamento longitudinal durante o free-roll")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
+figure(109)
+plot(tempofr, y(:,10), "b")
+hold on
+plot(tempofrL, yL(:,10), "r")
+grid on
+grid minor
+legend("Não-linear", "Linear")
+title("Velocidade longitudinal durante o free-roll")
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(110)
+plot(tempofrL, (180/pi)*abs(y(1:(j-1),3)-yL(1:(j-1),3)), "b")
+grid on
+grid minor
+title("Diferença entre modelo linear e não linear para theta durante o free-roll")
+xlabel('Tempo (s)')
+ylabel('Diferença (graus)')
+
+figure(111)
+plot(tempofrL, abs(y(1:(j-1),1)-yL(1:(j-1),1)), "m")
+hold on
+plot(tempofrL, abs(y(1:(j-1),2)-yL(1:(j-1),2)), "g")
+grid on
+grid minor
+legend("q1", "q2")
+title("Diferença entre modelo linear e não linear para q1 e q2 durante o free-roll")
+xlabel('Tempo (s)')
+ylabel('Diferença (m)')
+
+figure(112)
+plot(tempofr, y(:,1), "m")
+hold on
+plot(tempofr, y(:,2), "g")
+title("Variação de q1 e q2 durante o free-roll")
+xlabel('Tempo (s)')
+ylabel('Posição (m) durante o free-roll')
+legend('Variação de q1','Variação de q2')
+
+% Não fazem nada durante o free-roll
+% figure(113)
+% plot(tempofr, y(:,4), "b")
+% hold on
+% plot(tempofrL, yL(:,4), "r")
+% grid on
+% grid minor
+% legend("Não-linear", "Linear")
+% title('Variação de q3 durante o free-roll')
+% xlabel('Tempo (s)')
+% ylabel('Posição (m)')
+% 
+% figure(114)
+% plot(tempofr, y(:,8), "b")
+% hold on
+% plot(tempofrL, yL(:,8), "r")
+% grid on
+% grid minor
+% legend("Não-linear", "Linear")
+% title('Variação de q3ponto durante o free-roll')
+% xlabel('Tempo (s)')
+% ylabel('Velcidade (m/s)')
+
+figure(115)
+plot(tempofr(2:end), (dq2(1:(h-2),1)./g), "b")
+hold on
+plot(tempofrL(2:end), (dq2L(1:(j-2),1)./g), "r")
+grid on
+grid minor
+title('Carga inercial em q2 durante o free-roll',['C_{pav}=',int2str(C_pav)])
+legend("Não-linear", "Linear")
 xlabel('Tempo (s)')
 ylabel('Aceleração (m/s^2)')
 
