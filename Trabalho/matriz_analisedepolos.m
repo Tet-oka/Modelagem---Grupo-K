@@ -73,15 +73,18 @@ end
 
 LineWidth = 5;
 figure(1)
-plot(intervalovel, resp_real(3:4,:), "b", "LineWidth", 1.5)
+plot(intervalovel, resp_real(3:4,:), "b", "LineWidth", 1.25)
 hold on
-plot(intervalovel, relf(3,:), "r", "LineWidth", 1.5)
+plot(intervalovel, relf(3,:), "r", "LineWidth", 1.25)
 hold on
-plot(intervalovel, relf(4,:), "c", "LineWidth", 1.5)
+plot(intervalovel, relf(4,:), "c", "LineWidth", 1.25)
 grid on
 grid minor
-legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo")
-title("Polos relevantes do sistema")
+p = patch([280/3.6 280/3.6 300/3.6 300/3.6],[-0.25 0.25 0.25 -0.25],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo", "")
+title("Polos relevantes do sistema para Phi " + 180*a/pi + "° e velocidade vento " + v + "m/s")
 xlabel('Velocidade longitudinal (m/s)')
 
 
@@ -90,7 +93,7 @@ resp = [];
 intervalovento = 0:0.01:50;
 
 for n = intervalovento
-    u = 10;
+    u = 83.35;
     a = 13*pi/180;
     v = n;
     %primeira coluna
@@ -155,14 +158,14 @@ for i=1:length(relf)
     relf(4,i) = -relf(4,i);
 end
 
-% plot(intervalo, resp_imag(1:2,:), "b--", "LineWidth", 1.5)
+% plot(intervalo, resp_imag(1:2,:), "b--", "LineWidth", 1.25)
 % hold on
 figure(2)
-plot(intervalovento, resp_real(3:4,:), "b", "LineWidth", 1.5)
+plot(intervalovento, resp_real(3:4,:), "b", "LineWidth", 1.25)
 hold on
-plot(intervalovento, relf(3,:), "r", "LineWidth", 1.5)
+plot(intervalovento, relf(3,:), "r", "LineWidth", 1.25)
 hold on
-plot(intervalovento, relf(4,:), "c", "LineWidth", 1.5)
+plot(intervalovento, relf(4,:), "c", "LineWidth", 1.25)
 legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo" )
 grid on
 grid minor
@@ -171,7 +174,7 @@ xlabel('Velocidade do vento (m/s)')
 
 %%%%%%%%%%%%%%%%%%%%%%Análise de polos para variação de ângulo
 resp = [];
-intervaloang = 0:0.0001:pi/3;
+intervaloang = -13*pi/180:0.0001:pi/3;
 
 for n = intervaloang
     u = 83.35;
@@ -242,13 +245,14 @@ end
 % plot(intervalo, resp_imag(1:2,:), "b--")
 % hold on
 figure(3)
-plot(intervaloang*180/pi, resp_real(3:4,:), "b", "LineWidth", 1.5)
+plot(intervaloang*180/pi, resp_real(3:4,:), "b", "LineWidth", 1.25)
 hold on
-plot(intervaloang*180/pi, relf(3,:), "r", "LineWidth", 1.5)
+plot(intervaloang*180/pi, relf(3,:), "r", "LineWidth", 1.25)
 hold on
-plot(intervaloang*180/pi, relf(4,:), "c", "LineWidth", 1.5)
+plot(intervaloang*180/pi, relf(4,:), "c", "LineWidth", 1.25)
 grid on
 grid minor
+xlim([-13 60])
 legend( "", "Parte real do complexo conjugado", "Real positivo", "Real negativo" )
 title("Polos relevantes do sistema para vento " + v + "m/s e velocidade longitudinal " + u + "m/s")
 xlabel('Ângulo (graus)')
