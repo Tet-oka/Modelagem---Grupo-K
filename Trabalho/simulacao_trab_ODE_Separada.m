@@ -48,7 +48,7 @@ x0 = [q1_0 q2_0 theta_0 q3_0 q1p_0 q2p_0 thetap_0 q3p_0 pos_ini vel_ini];
 [t, y] = ode45(@f, tempo, x0, max_step);
 [t, yL] = ode45(@fL, tempo, x0, max_step);
 
-%% testando
+%% Condições para a troca da ODE entre modelo incial e meio carro
 
 h=1;
 while y(h,9)~=y(h+1,9)
