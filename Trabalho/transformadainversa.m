@@ -20,8 +20,6 @@ T3 = (2039633433799973.*exp(-(4053281885879953.*t_t)/281474976710656).*(cos((484
 %0.1818
 T4 = -(2039812136633187.*exp(-(3274315087481955.*t_t)/18014398509481984).*(cos((5^(1/2)*2914418497390242841477716144047335003^(1/2).*t_t)/450359962737049600) + (6032913674873069652066666895771925*5^(1/2)*2914418497390242841477716144047335003^(1/2)*sin((5^(1/2).*2914418497390242841477716144047335003^(1/2).*t_t)/450359962737049600))/849266603172124797305772179751089821382556616649223))/576460752303423488;
 
-
-
 figure(1)
 plot(t_t, transt, "b")
 grid on
@@ -55,10 +53,10 @@ grid minor
 title("Região de atuação do modelo na transformada inversa de Laplace para theta - Impulso")
 xlabel('Tempo (s)')
 ylabel('Amplitude de Theta (radianos)')
-p = patch([0 0 5 5],[-0.4 0.1 0.1 -0.4],'');
-ylim([-0.4 0.1])
-set(p,'FaceAlpha',0.1)
-set(p,'EdgeColor','none')
+% p = patch([0 0 5 5],[-0.4 0.1 0.1 -0.4],'');
+% ylim([-0.4 0.1])
+% set(p,'FaceAlpha',0.1)
+% set(p,'EdgeColor','none')
 legend("Termo com exponencial positiva", "Resposta do sistema", "Região passível de análise free-roll")
 
 %%F ACIMA TOMADA COMO A DECOMPOSIÇÃO EM FRAÇÃO PARCIAL DO TERMO (2,1) DA FUNÇÃO DE TRANSFERÊNCIA, OU SEJA, A RESPOSTA À IMPULSO DE POSIÇÃO NA COORDENADA THETA
@@ -79,3 +77,10 @@ title("Transformada inversa de Laplace para q2- Impulso")
 xlabel('Tempo (s)')
 ylabel('Amplitude de q2 (metros)')
 
+figure(5)
+plot(t_t, -0.0011.*exp(0.1981.*t_t), "r", "LineWidth", 1)
+grid on
+grid minor
+title("T2")
+xlabel('Tempo (s)')
+ylabel('Amplitude de Theta (radianos)')

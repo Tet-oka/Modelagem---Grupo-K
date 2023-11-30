@@ -52,3 +52,14 @@
     
     Polos = [p11 p12 p13 p14 p15 p16; p21 p22 p23 p24 p25 p26; p31 p32 p33 p34 p35 p36; p41 p42 p43 p44 p45 p46; p51 p52 p53 p54 p55 p56; p61 p62 p63 p64 p65 p66];
     z = eig(Polos)
+        
+    plot(real(z(1)),imag(z(1)),"x", real(z(2)),imag(z(2)),"x", real(z(3)),imag(z(3)),"x", real(z(4)),imag(z(4)),"x", real(z(5)),imag(z(5)),"x", real(z(6)),imag(z(6)),"x", 'LineWidth',2)
+    axis equal
+    grid on
+    grid minor
+    title("Polos do sistema para phi = 13° sem vento e velocidade longit. 300km/h")
+    legend("-14.4002 +78.2215i", "-14.4002 -78.2215i", "-0.1818 + 8.4762i", "-0.1818 - 8.4762i", "-0.1981 + 0.0000i", "0.1981 + 0.0000i", "", "")
+    yline(0)
+    xline(0)
+    xlabel("Re(z)")
+    ylabel("Im(z)")
