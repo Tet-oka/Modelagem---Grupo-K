@@ -1,7 +1,7 @@
 
 %% Definição dos parâmetros iniciais da integração
 t = 30; 
-T_sim = 1/50;
+T_sim = 1/20;
 tempo = 0:T_sim:t;
 %Passo máximo ODE
 max_step = odeset('MaxStep', T_sim);
@@ -9,11 +9,11 @@ max_step = odeset('MaxStep', T_sim);
 phi = 13*pi/180; 
 g = 9.81;
 rho = 1.2923; 
-WL = 385; %Wing loading para Concorde pousando com 110 ton com A = (25.6^2/1.7)
-S = M/WL; 
+WL = 385; %Wing loading para Concorde pousando com 110 ton com A = (25.6^2/1.7) 
 C_pav = 1; 
 M = 88000; 
 m = 4000;
+S = M/WL;
 D_po = 5;
 D_go = 2.8;
 D_fo = 18.2;
@@ -139,125 +139,125 @@ t=rms(dq2);
 
  %% Plot dos gráficos
 
-% figure(1)
-% plot(tempo, yc(:,1), "b")
-% hold on
-% plot(tempo, ycL(:,1), "r")
-% grid on
-% grid minor
-% ylim([11/10*min1 11/10*max1]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min1 11/10*max1 11/10*max1 11/10*min1],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Variação de q1')
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
+figure(1)
+plot(tempo, yc(:,1), "b")
+hold on
+plot(tempo, ycL(:,1), "r")
+grid on
+grid minor
+ylim([11/10*min1 11/10*max1]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min1 11/10*max1 11/10*max1 11/10*min1],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Variação de q1')
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
+figure(2)
+plot(tempo, yc(:,2), "b")
+hold on
+plot(tempo, ycL(:,2), "r")
+grid on
+grid minor
+ylim([11/10*min2 11/10*max2]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min2 11/10*max2 11/10*max2 11/10*min2],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Variação de q2')
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
+
+figure(3)
+plot(tempo, yc(:,3), "b")
+hold on
+plot(tempo, ycL(:,3), "r")
+grid on
+grid minor
+ylim([11/10*min3 11/10*max3]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min3 11/10*max3 11/10*max3 11/10*min3],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Variação de theta em rad')
+xlabel('Tempo (s)')
+ylabel('Ângulo (rad)')
+
+figure(4)
+plot(tempo, 180*yc(:,3)/pi, "b")
+hold on
+plot(tempo, 180*ycL(:,3)/pi, "r")
+grid on
+grid minor
+ylim([11/10*min3*180/pi 11/10*max3*180/pi]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min3*180/pi 11/10*max3*180/pi 11/10*max3*180/pi 11/10*min3*180/pi],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Variação de theta em graus para Phi=13')
+xlabel('Tempo (s)')
+ylabel('Ângulo (graus)')
+
+figure(5)
+plot(tempo, yc(:,5), "b")
+hold on
+plot(tempo, ycL(:,5), "r")
+grid on
+grid minor
+ylim([11/10*min5 11/10*max5]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min5 11/10*max5 11/10*max5 11/10*min5],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Velocidade de q1')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(6)
+plot(tempo, yc(:,6), "b")
+hold on
+plot(tempo, ycL(:,6), "r")
+grid on
+grid minor
+ylim([11/10*min6 11/10*max6]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min6 11/10*max6 11/10*max6 11/10*min6],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Velocidade de q2')
+xlabel('Tempo (s)')
+ylabel('Velocidade (m/s)')
+
+figure(7)
+plot(tempo, yc(:,7), "b")
+hold on
+plot(tempo, ycL(:,7), "r")
+grid on
+grid minor
+ylim([11/10*min7 11/10*max7]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min7 11/10*max7 11/10*max7 11/10*min7],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title('Velocidade angular de theta')
+xlabel('Tempo (s)')
+ylabel('Velocidade (rad/s)')
 % 
-% figure(2)
-% plot(tempo, yc(:,2), "b")
-% hold on
-% plot(tempo, ycL(:,2), "r")
-% grid on
-% grid minor
-% ylim([11/10*min2 11/10*max2]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min2 11/10*max2 11/10*max2 11/10*min2],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Variação de q2')
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
-% 
-% figure(3)
-% plot(tempo, yc(:,3), "b")
-% hold on
-% plot(tempo, ycL(:,3), "r")
-% grid on
-% grid minor
-% ylim([11/10*min3 11/10*max3]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min3 11/10*max3 11/10*max3 11/10*min3],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Variação de theta em rad')
-% xlabel('Tempo (s)')
-% ylabel('Ângulo (rad)')
-% 
-% figure(4)
-% plot(tempo, 180*yc(:,3)/pi, "b")
-% hold on
-% plot(tempo, 180*ycL(:,3)/pi, "r")
-% grid on
-% grid minor
-% ylim([11/10*min2*180/pi 11/10*max3*180/pi]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min3*180/pi 11/10*max3*180/pi 11/10*max3*180/pi 11/10*min3*180/pi],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Variação de theta em graus para Phi=13')
-% xlabel('Tempo (s)')
-% ylabel('Ângulo (graus)')
-% 
-% figure(5)
-% plot(tempo, yc(:,5), "b")
-% hold on
-% plot(tempo, ycL(:,5), "r")
-% grid on
-% grid minor
-% ylim([11/10*min5 11/10*max5]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min5 11/10*max5 11/10*max5 11/10*min5],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Velocidade de q1')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (m/s)')
-% 
-% figure(6)
-% plot(tempo, yc(:,6), "b")
-% hold on
-% plot(tempo, ycL(:,6), "r")
-% grid on
-% grid minor
-% ylim([11/10*min6 11/10*max6]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min6 11/10*max6 11/10*max6 11/10*min6],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Velocidade de q2')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (m/s)')
-% 
-% figure(7)
-% plot(tempo, yc(:,7), "b")
-% hold on
-% plot(tempo, ycL(:,7), "r")
-% grid on
-% grid minor
-% ylim([11/10*min7 11/10*max7]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min7 11/10*max7 11/10*max7 11/10*min7],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title('Velocidade angular de theta')
-% xlabel('Tempo (s)')
-% ylabel('Velocidade (rad/s)')
-% 
-% figure(8)
-% plot(tempo, yc(:,9), "b")
-% hold on
-% plot(tempo, ycL(:,9), "r")
-% grid on
-% grid minor
-% ylim([11/10*min9 11/10*max9]);
-% p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min9 11/10*max9 11/10*max9 11/10*min9],'');
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
-% legend("Não-linear", "Linear", "Free-roll")
-% title("Deslocamento longitudinal")
-% xlabel('Tempo (s)')
-% ylabel('Posição (m)')
+figure(8)
+plot(tempo, yc(:,9), "b")
+hold on
+plot(tempo, ycL(:,9), "r")
+grid on
+grid minor
+ylim([11/10*min9 11/10*max9]);
+p = patch([0 0 T_sim*length(tempofr) T_sim*length(tempofr)],[11/10*min9 11/10*max9 11/10*max9 11/10*min9],'');
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
+legend("Não-linear", "Linear", "Free-roll")
+title("Deslocamento longitudinal")
+xlabel('Tempo (s)')
+ylabel('Posição (m)')
 % 
 % figure(9)
 % plot(tempo, yc(:,10), "b")
@@ -376,16 +376,16 @@ t=rms(dq2);
 % xlabel('Tempo (s)')
 % ylabel('Ângulo (rad)')
 % 
-figure(104)
-plot(tempofr, 180*y(:,3)/pi, "b")
-hold on
-plot(tempofrL, 180*yL(:,3)/pi, "r")
-grid on
-grid minor
-legend("Não-linear", "Linear")
-title('Variação de theta em graus para Phi=13 durante o free-roll')
-xlabel('Tempo (s)')
-ylabel('Ângulo (graus)')
+% figure(104)
+% plot(tempofr, 180*y(:,3)/pi, "b")
+% hold on
+% plot(tempofrL, 180*yL(:,3)/pi, "r")
+% grid on
+% grid minor
+% legend("Não-linear", "Linear")
+% title('Variação de theta em graus para Phi=13 durante o free-roll')
+% xlabel('Tempo (s)')
+% ylabel('Ângulo (graus)')
 % 
 % figure(105)
 % plot(tempofr, y(:,5), "b")
@@ -523,7 +523,7 @@ u_rol = (0.0041+0.000041*y_0(10))*C_pav;
 D_po = 5;
 D_go = 2.8;
 D_fo = 18.2;
-u_v = -20; %estoura em 3.9
+u_v = 0; %estoura em 3.9
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -583,7 +583,7 @@ u_rol = (0.0041+0.000041*yL_0(10))*C_pav;
 D_po = 5;
 D_go = 2.8;
 D_fo = 18.2;
-u_v = -20; %estoura em 3.9
+u_v = 0; %estoura em 3.9
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -642,7 +642,7 @@ u_rol = (0.0041+0.000041*y_0(10))*C_pav;
 D_po = 5;
 D_go = 2.8;
 D_fo = 18.2;
-u_v = -20; %estoura em 3.9 
+u_v = 0; %estoura em 3.9 
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -687,7 +687,7 @@ u_rol = (0.0041+0.000041*yL_0(10))*C_pav;
 D_po = 5;
 D_go = 2.8;
 D_fo = 18.2;
-u_v = -20; %estoura em 3.9
+u_v = 0; %estoura em 3.9
 y_ext = 0;
 yponto_ext = 0;
 J_oz = 16864415;
@@ -715,4 +715,3 @@ vel_ini = 300/3.6;
     dyLdt = [dyLdt1; dyLdt2; dyLdt3; dyLdt4; dyLdt5; dyLdt6; dyLdt7; dyLdt8; dyLdt9; dyLdt10];
 
 end
-

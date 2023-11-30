@@ -53,10 +53,10 @@ grid minor
 title("Região de atuação do modelo na transformada inversa de Laplace para theta - Impulso")
 xlabel('Tempo (s)')
 ylabel('Amplitude de Theta (radianos)')
-% p = patch([0 0 5 5],[-0.4 0.1 0.1 -0.4],'');
-% ylim([-0.4 0.1])
-% set(p,'FaceAlpha',0.1)
-% set(p,'EdgeColor','none')
+p = patch([0 0 5 5],[-0.4 0.1 0.1 -0.4],'');
+ylim([-0.4 0.1])
+set(p,'FaceAlpha',0.1)
+set(p,'EdgeColor','none')
 legend("Termo com exponencial positiva", "Resposta do sistema", "Região passível de análise free-roll")
 
 %%F ACIMA TOMADA COMO A DECOMPOSIÇÃO EM FRAÇÃO PARCIAL DO TERMO (2,1) DA FUNÇÃO DE TRANSFERÊNCIA, OU SEJA, A RESPOSTA À IMPULSO DE POSIÇÃO NA COORDENADA THETA
@@ -68,19 +68,19 @@ t_q = 0:0.1:100;
 
 FUNq = matlabFunction(fq);
 transq = feval(FUNq, t_q);
+% 
+% figure(4)
+% plot(t_q, transq, "b")
+% grid on
+% grid minor
+% title("Transformada inversa de Laplace para q2- Impulso")
+% xlabel('Tempo (s)')
+% ylabel('Amplitude de q2 (metros)')
 
-figure(4)
-plot(t_q, transq, "b")
-grid on
-grid minor
-title("Transformada inversa de Laplace para q2- Impulso")
-xlabel('Tempo (s)')
-ylabel('Amplitude de q2 (metros)')
-
-figure(5)
-plot(t_t, -0.0011.*exp(0.1981.*t_t), "r", "LineWidth", 1)
-grid on
-grid minor
-title("T2")
-xlabel('Tempo (s)')
-ylabel('Amplitude de Theta (radianos)')
+% figure(5)
+% plot(t_t, -0.0011.*exp(0.1981.*t_t), "r", "LineWidth", 1)
+% grid on
+% grid minor
+% title("T2")
+% xlabel('Tempo (s)')
+% ylabel('Amplitude de Theta (radianos)')
